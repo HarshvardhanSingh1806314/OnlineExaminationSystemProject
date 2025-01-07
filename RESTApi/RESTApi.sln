@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.35325.158
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTApi", "RESTApi\RESTApi.csproj", "{3711B4A7-5177-4BA9-B533-7C8889EEDB92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTApi", "RESTApi\RESTApi.csproj", "{03118FAF-FC35-4890-908A-7B1163627347}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3711B4A7-5177-4BA9-B533-7C8889EEDB92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3711B4A7-5177-4BA9-B533-7C8889EEDB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3711B4A7-5177-4BA9-B533-7C8889EEDB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3711B4A7-5177-4BA9-B533-7C8889EEDB92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03118FAF-FC35-4890-908A-7B1163627347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03118FAF-FC35-4890-908A-7B1163627347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03118FAF-FC35-4890-908A-7B1163627347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03118FAF-FC35-4890-908A-7B1163627347}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1A82C603-FD35-420D-BEA1-EA3CC05CAC37}
+		SolutionGuid = {E6F0FD0D-853C-4570-B3F9-A8026FAA0917}
 	EndGlobalSection
 EndGlobal
