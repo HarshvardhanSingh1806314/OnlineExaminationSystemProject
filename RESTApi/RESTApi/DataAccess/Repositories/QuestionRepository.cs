@@ -1,9 +1,5 @@
 ﻿using RESTApi.DataAccess.Repositories.IRepository;
 using RESTApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using static RESTApi.Models.CustomModels;
 
 namespace RESTApi.DataAccess.Repositories
@@ -20,26 +16,28 @@ namespace RESTApi.DataAccess.Repositories
         public Question Update(string Id, QuestionUpdateModel questionUpdateModel)
         {
             Question questionExist = _db.Questions.Find(Id);
-            if(questionExist != null)
+            if(questionExist == null)
             {
-                questionExist.Description = questionUpdateModel.Description != null && questionUpdateModel.Description.Length > 0 ? 
-                                            questionUpdateModel.Description : questionExist.Description;
-
-                questionExist.Option1 = questionUpdateModel.Option1 != null && questionUpdateModel.Option1.Length > 0 ? 
-                                        questionUpdateModel.Option1 : questionExist.Option1;
-
-                questionExist.Option2 = questionUpdateModel.Option2 != null && questionUpdateModel.Option2.Length > 0 ?
-                                        questionUpdateModel.Option2 : questionExist.Option2;
-
-                questionExist.Option3 = questionUpdateModel.Option3 != null && questionUpdateModel.Option3.Length > 0 ?
-                                        questionUpdateModel.Option3 : questionExist.Option3;
-
-                questionExist.Option4 = questionUpdateModel.Option4 != null && questionUpdateModel.Option4.Length > 0 ?
-                                        questionUpdateModel.Option4 : questionExist.Option4;
-
-                questionExist.Answer = questionUpdateModel.Answer != null && questionUpdateModel.Answer.Length > 0 ?
-                                        questionUpdateModel.Answer : questionExist.Answer;
+                return null;
             }
+
+            questionExist.Description = questionUpdateModel.Description != null && questionUpdateModel.Description.Length > 0 ? 
+                                        questionUpdateModel.Description : questionExist.Description;
+
+            questionExist.Option1 = questionUpdateModel.Option1 != null && questionUpdateModel.Option1.Length > 0 ? 
+                                    questionUpdateModel.Option1 : questionExist.Option1;
+
+            questionExist.Option2 = questionUpdateModel.Option2 != null && questionUpdateModel.Option2.Length > 0 ?
+                                    questionUpdateModel.Option2 : questionExist.Option2;
+
+            questionExist.Option3 = questionUpdateModel.Option3 != null && questionUpdateModel.Option3.Length > 0 ?
+                                    questionUpdateModel.Option3 : questionExist.Option3;
+
+            questionExist.Option4 = questionUpdateModel.Option4 != null && questionUpdateModel.Option4.Length > 0 ?
+                                    questionUpdateModel.Option4 : questionExist.Option4;
+
+            questionExist.Answer = questionUpdateModel.Answer != null && questionUpdateModel.Answer.Length > 0 ?
+                                    questionUpdateModel.Answer : questionExist.Answer;
 
             return questionExist;
         }
