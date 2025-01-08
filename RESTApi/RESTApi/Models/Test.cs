@@ -41,10 +41,10 @@ namespace RESTApi.Models
 
         [ForeignKey("AdminId")]
         [JsonIgnore]
-        public Admin Admin { get; set; }
+        public virtual Admin Admin { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
 
-        public ICollection<Report> Reports { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }

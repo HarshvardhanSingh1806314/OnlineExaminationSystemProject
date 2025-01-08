@@ -7,6 +7,7 @@ namespace RESTApi.Models
     public class Admin
     {
         [Key]
+        [AdminIdValidation(ErrorMessage: "Voilated the minimum value criteria")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
@@ -31,6 +32,6 @@ namespace RESTApi.Models
         public int EmployeeId { get; set; }
 
         // Navigation Property For Tests
-        public ICollection<Test> Tests { get; set; }
+        public virtual ICollection<Test> Tests { get; set; }
     }
 }

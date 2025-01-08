@@ -40,12 +40,12 @@ namespace RESTApi.Models
         public string DifficultyLevelId { get; set; } 
 
         [ForeignKey("DifficultyLevelId")]
-        public DifficultyLevel DifficultyLevel { get; set; }
+        public virtual DifficultyLevel DifficultyLevel { get; set; }
 
         [Required(ErrorMessage = "Test cannot be empty")]
         public string TestId { get; set; }
 
         [ForeignKey("TestId")]
-        public Test Test { get; set; }
+        public virtual Test Test { get; set; }
     }
 }

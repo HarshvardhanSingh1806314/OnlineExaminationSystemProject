@@ -16,13 +16,13 @@ namespace RESTApi.Models
         public string StudentId { get; set; }
 
         [ForeignKey("StudentId")]
-        public Student Student { get; set; }
+        public virtual Student Student { get; set; }
 
         [Required(ErrorMessage = "Test ID is required")]
         public string TestId { get; set; }
 
         [ForeignKey("TestId")]
-        public Test Test { get; set; }
+        public virtual Test Test { get; set; }
 
         [Required(ErrorMessage = "Total Attempts Cannot be empty")]
         public int TotalAttemptsInEasyQuestions { get; set; } = 0;

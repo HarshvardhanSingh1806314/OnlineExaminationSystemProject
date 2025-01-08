@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace RESTApi.Models
 {
@@ -35,7 +33,8 @@ namespace RESTApi.Models
         public DateTime DOB {get; set;}
 
         [Required(ErrorMessage = "Graduation Year cannot be empty")]
-        public string GraduationYear { get; set; }
+        [GraduationYearValidation(ErrorMessage: "Graduation year should be greater than or equal to 1970")]
+        public int GraduationYear { get; set; }
 
         public string City { get; set; }
 
@@ -45,6 +44,6 @@ namespace RESTApi.Models
         [Required(ErrorMessage = "Degree Major cannot be empty")]
         public string DegreeMajor { get; set; }
 
-        public ICollection<Report> Reports { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }
