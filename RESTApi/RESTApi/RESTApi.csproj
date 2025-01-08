@@ -185,6 +185,8 @@
     </Compile>
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\EmailService\EmailService.cs" />
+    <Compile Include="Utility\EmailService\IEmailService.cs" />
     <Compile Include="Utility\IdGenerator.cs" />
     <Compile Include="Utility\PasswordManager.cs" />
   </ItemGroup>
