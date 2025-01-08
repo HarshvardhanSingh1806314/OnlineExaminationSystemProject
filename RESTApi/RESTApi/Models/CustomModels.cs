@@ -2,6 +2,11 @@
 
 namespace RESTApi.Models
 {
+    /* These models will be used when the request to update any of the respective
+     * database models come.
+     * 
+     * These models will be populated with the respective fields in the request body
+     */
     public class CustomModels
     {
         public struct TestUpdateModel

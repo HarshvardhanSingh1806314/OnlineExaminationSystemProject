@@ -7,7 +7,9 @@ using System.Web.Http;
 
 namespace RESTApi.Controllers
 {
+    [RoutePrefix("api/Auth")]
     public class AuthenticationController : ApiController
     {
+
     }
 }
