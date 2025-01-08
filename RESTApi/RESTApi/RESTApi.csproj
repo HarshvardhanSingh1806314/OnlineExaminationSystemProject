@@ -132,6 +132,17 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\IAdminRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\IQuestionRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\IReportRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\IRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\IStudentRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\ITestRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IRepository\IUnitOfWork.cs" />
+    <Compile Include="DataAccess\Repositories\QuestionRepository.cs" />
+    <Compile Include="DataAccess\Repositories\Repository.cs" />
+    <Compile Include="DataAccess\Repositories\TestRepository.cs" />
+    <Compile Include="DataAccess\Repositories\UnitOfWork.cs" />
     <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.cs" />
     <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.designer.cs">
       <DependentUpon>202501080645034_addDifficultyLevelToDb.cs</DependentUpon>
@@ -142,6 +153,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\CustomModels.cs" />
     <Compile Include="Models\DifficultyLevel.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Report.cs" />
