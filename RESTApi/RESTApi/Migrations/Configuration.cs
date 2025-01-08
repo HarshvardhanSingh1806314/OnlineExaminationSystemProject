@@ -28,6 +28,13 @@
                 new DifficultyLevel { Id = IdGenerator.GenerateIdForDifficultyLevel("MEDIUM"), LevelName = "MEDIUM"},
                 new DifficultyLevel { Id = IdGenerator.GenerateIdForDifficultyLevel("HARD"), LevelName = "HARD"}
             );
+
+            // seeding Roles Table with Roles
+            context.Roles.AddOrUpdate(
+                r => r.RoleId,
+                new Role { RoleId = IdGenerator.GenerateIdForRole("STUDENT"), Name = "STUDENT" },
+                new Role { RoleId = IdGenerator.GenerateIdForRole("ADMIN"), Name = "ADMIN"}
+            );
         }
     }
 }
