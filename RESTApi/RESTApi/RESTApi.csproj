@@ -132,6 +132,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IAdminRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IQuestionRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IReportRepository.cs" />
@@ -149,12 +150,17 @@
     <Compile Include="Migrations\202501080945455_addEntitiesToDb.designer.cs">
       <DependentUpon>202501080945455_addEntitiesToDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501081620544_addRolesAndUserRolesToDb.cs" />
+    <Compile Include="Migrations\202501081620544_addRolesAndUserRolesToDb.designer.cs">
+      <DependentUpon>202501081620544_addRolesAndUserRolesToDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\CustomModels.cs" />
     <Compile Include="Models\DifficultyLevel.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="CustomValidations\PasswordValidation.cs" />
@@ -162,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\IdGenerator.cs" />
   </ItemGroup>
@@ -175,9 +182,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
@@ -187,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501080945455_addEntitiesToDb.resx">
       <DependentUpon>202501080945455_addEntitiesToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501081620544_addRolesAndUserRolesToDb.resx">
+      <DependentUpon>202501081620544_addRolesAndUserRolesToDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,6 +22,10 @@ namespace RESTApi.DataAccess
 
         public DbSet<DifficultyLevel> DifficultyLevels { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<UserRole> UserRoles { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

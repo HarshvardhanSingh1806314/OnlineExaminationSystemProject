@@ -16,6 +16,12 @@ namespace RESTApi.Utility
             }
         }
 
+        public static string GenerateIdForRole(string roleName)
+        {
+            string input = $"{roleName}{DateTime.Now}";
+            return GenerateCustomId(input);
+        }
+
         public static string GenerateIdForDifficultyLevel(string difficultyLevel)
         {
             string input = $"{difficultyLevel.ToLower()}{DateTime.Now}";
