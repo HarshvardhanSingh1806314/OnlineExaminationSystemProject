@@ -138,11 +138,9 @@
     <Compile Include="DataAccess\Repositories\IRepository\IRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IStudentRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\ITestRepository.cs" />
-    <Compile Include="DataAccess\Repositories\IRepository\IUnitOfWork.cs" />
     <Compile Include="DataAccess\Repositories\QuestionRepository.cs" />
     <Compile Include="DataAccess\Repositories\Repository.cs" />
     <Compile Include="DataAccess\Repositories\TestRepository.cs" />
-    <Compile Include="DataAccess\Repositories\UnitOfWork.cs" />
     <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.cs" />
     <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.designer.cs">
       <DependentUpon>202501080645034_addDifficultyLevelToDb.cs</DependentUpon>

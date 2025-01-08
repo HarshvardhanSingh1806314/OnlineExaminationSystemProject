@@ -16,5 +16,7 @@ namespace RESTApi.DataAccess.Repositories.IRepository
         T Add(T entity);
 
         bool Remove(T entity);
+
+        bool Save();
     }
 }

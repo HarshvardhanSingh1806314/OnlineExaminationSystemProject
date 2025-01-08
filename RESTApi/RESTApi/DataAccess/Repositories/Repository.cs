@@ -40,6 +40,16 @@ namespace RESTApi.DataAccess.Repositories
             return true;
         }
 
+        public bool Save()
+        {
+            if(_db.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public T Get(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
             IQueryable<T> query = this.dbSet;
