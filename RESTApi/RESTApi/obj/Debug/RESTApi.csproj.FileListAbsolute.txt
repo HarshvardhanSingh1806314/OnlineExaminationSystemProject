@@ -89,3 +89,4 @@ C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\bin\Entit
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\bin\EntityFramework.SqlServer.xml
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.Migrations.addDifficultyLevelToDb.resources
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.csproj.GenerateResource.cache
+C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.Migrations.addEntitiesToDb.resources

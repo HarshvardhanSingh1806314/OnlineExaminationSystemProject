@@ -15,6 +15,7 @@ namespace RESTApi.Models
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [MaxLength(100, ErrorMessage = "Email length cannot be more than 100 characters")]
         [EmailAddress(ErrorMessage = "Invalid Email Address Format")]
         public string EmployeeEmail { get; set; }
 

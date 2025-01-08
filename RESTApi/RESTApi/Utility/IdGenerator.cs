@@ -14,6 +14,7 @@ namespace RESTApi.Utility
                 return Convert.ToBase64String(inputBytes);
             }
         }
+
         public static string GenerateIdForDifficultyLevel(string difficultyLevel)
         {
             string input = $"{difficultyLevel.ToLower()}{DateTime.Now}";

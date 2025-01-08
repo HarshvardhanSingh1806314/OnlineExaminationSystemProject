@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -41,5 +42,9 @@ namespace RESTApi.Models
         [ForeignKey("AdminId")]
         [JsonIgnore]
         public Admin Admin { get; set; }
+
+        public ICollection<Question> Questions { get; set; }
+
+        public ICollection<Report> Reports { get; set; }
     }
 }
