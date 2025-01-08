@@ -133,6 +133,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="CustomValidations\AdminIdValidation.cs" />
+    <Compile Include="CustomValidations\GraduationYearValidation.cs" />
+    <Compile Include="DataAccess\Repositories\AdminRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IAdminRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IQuestionRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\IReportRepository.cs" />
@@ -140,8 +143,10 @@
     <Compile Include="DataAccess\Repositories\IRepository\IStudentRepository.cs" />
     <Compile Include="DataAccess\Repositories\IRepository\ITestRepository.cs" />
     <Compile Include="DataAccess\Repositories\QuestionRepository.cs" />
+    <Compile Include="DataAccess\Repositories\ReportRepository.cs" />
     <Compile Include="DataAccess\Repositories\Repository.cs" />
     <Compile Include="DataAccess\Repositories\TestRepository.cs" />
+    <Compile Include="DataAccess\Repositories\StudentRepository.cs" />
     <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.cs" />
     <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.designer.cs">
       <DependentUpon>202501080645034_addDifficultyLevelToDb.cs</DependentUpon>
@@ -153,6 +158,10 @@
     <Compile Include="Migrations\202501081620544_addRolesAndUserRolesToDb.cs" />
     <Compile Include="Migrations\202501081620544_addRolesAndUserRolesToDb.designer.cs">
       <DependentUpon>202501081620544_addRolesAndUserRolesToDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202501081658532_changedDataTypeOfGraduationYearFromStringToInt.cs" />
+    <Compile Include="Migrations\202501081658532_changedDataTypeOfGraduationYearFromStringToInt.designer.cs">
+      <DependentUpon>202501081658532_changedDataTypeOfGraduationYearFromStringToInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -195,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501081620544_addRolesAndUserRolesToDb.resx">
       <DependentUpon>202501081620544_addRolesAndUserRolesToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501081658532_changedDataTypeOfGraduationYearFromStringToInt.resx">
+      <DependentUpon>202501081658532_changedDataTypeOfGraduationYearFromStringToInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
