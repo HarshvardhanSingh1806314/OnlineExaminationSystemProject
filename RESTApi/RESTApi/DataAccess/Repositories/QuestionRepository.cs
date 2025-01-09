@@ -13,13 +13,9 @@ namespace RESTApi.DataAccess.Repositories
             _db = db;
         }
 
-        public Question Update(string Id, QuestionUpdateModel questionUpdateModel)
+        public Question Update(string Id, QuestionAddOrUpdateModel questionUpdateModel)
         {
             Question questionExist = _db.Questions.Find(Id);
-            if(questionExist == null)
-            {
-                return null;
-            }
 
             questionExist.Description = questionUpdateModel.Description != null && questionUpdateModel.Description.Length > 0 ? 
                                         questionUpdateModel.Description : questionExist.Description;

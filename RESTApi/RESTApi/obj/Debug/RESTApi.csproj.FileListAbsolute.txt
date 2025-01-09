@@ -120,6 +120,8 @@ C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.csproj.CopyComplete
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.dll
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.pdb
-C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.csproj.AssemblyReference.cache
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.Migrations.addEntitiesToDb.resources
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.csproj.GenerateResource.cache
+C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.Migrations.addResultTableToDb.resources
+C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.Migrations.addedResultForeignKeyInReportTable.resources
+C:\Users\harshvardhansi\OnlineExaminationSystemProject\RESTApi\RESTApi\obj\Debug\RESTApi.csproj.AssemblyReference.cache

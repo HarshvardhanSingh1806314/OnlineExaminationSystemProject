@@ -12,14 +12,16 @@ namespace RESTApi.Models
      */
     public class CustomModels
     {
-        public struct TestUpdateModel
+        public struct TestAddOrUpdateModel
         {
             public string Name { get; set; }
 
             public string Description { get; set; }
+
+            public int Duration { get; set; }
         }
 
-        public struct QuestionUpdateModel
+        public struct QuestionAddOrUpdateModel
         {
             public string Description { get; set; }
 
@@ -34,7 +36,7 @@ namespace RESTApi.Models
             public string Answer { get; set; }
         }
 
-        public struct StudentUpdateModel
+        public struct StudentAddOrUpdateModel
         {
             public string Username { get; set; }
 
@@ -55,7 +57,7 @@ namespace RESTApi.Models
             public string DegreeMajor { get; set; }
         }
 
-        public struct AdminUpdateModel
+        public struct AdminAddOrUpdateModel
         {
             public int Id { get; set; }
 
@@ -70,7 +72,7 @@ namespace RESTApi.Models
             public int EmployeeId { get; set; }
         }
 
-        public struct ReportUpdateModel
+        public struct ReportAddOrUpdateModel
         {
             public string StudentId { get; set; }
 

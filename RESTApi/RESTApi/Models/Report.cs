@@ -41,5 +41,11 @@ namespace RESTApi.Models
 
         [Required(ErrorMessage = "Correct Attempts Cannot be Empty")]
         public int CorrectAttemptsInHardQuestions { get; set; }
+
+        [Required(ErrorMessage = "Result cannot be empty")]
+        public string ResultId { get; set; }
+
+        [ForeignKey("ResultId")]
+        public virtual Result Result { get; set;}
     }
 }

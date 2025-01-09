@@ -189,7 +189,13 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="CustomExceptions\EntityAlreadyExistException.cs" />
     <Compile Include="CustomExceptions\InvalidCredentialsException.cs" />
     <Compile Include="CustomExceptions\NullEntityException.cs" />
     <Compile Include="CustomExceptions\OperationFailedException.cs" />
@@ -214,12 +220,21 @@
     <Compile Include="Migrations\202501091701165_addEntitiesToDb.designer.cs">
       <DependentUpon>202501091701165_addEntitiesToDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501091734100_addResultTableToDb.cs" />
+    <Compile Include="Migrations\202501091734100_addResultTableToDb.designer.cs">
+      <DependentUpon>202501091734100_addResultTableToDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202501091737054_addedResultForeignKeyInReportTable.cs" />
+    <Compile Include="Migrations\202501091737054_addedResultForeignKeyInReportTable.designer.cs">
+      <DependentUpon>202501091737054_addedResultForeignKeyInReportTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\CustomModels.cs" />
     <Compile Include="Models\DifficultyLevel.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Test.cs" />
@@ -252,6 +267,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202501091701165_addEntitiesToDb.resx">
       <DependentUpon>202501091701165_addEntitiesToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501091734100_addResultTableToDb.resx">
+      <DependentUpon>202501091734100_addResultTableToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501091737054_addedResultForeignKeyInReportTable.resx">
+      <DependentUpon>202501091737054_addedResultForeignKeyInReportTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

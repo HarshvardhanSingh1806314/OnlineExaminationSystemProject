@@ -5,6 +5,6 @@ namespace RESTApi.DataAccess.Repositories.IRepository
 {
     public interface IReportRepository : IRepository<Report>
     {
-        Report Update(string ReportId, ReportUpdateModel reportUpdateModel);
+        Report Update(string ReportId, ReportAddOrUpdateModel reportUpdateModel);
     }
 }

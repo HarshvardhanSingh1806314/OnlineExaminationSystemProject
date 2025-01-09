@@ -69,6 +69,12 @@ namespace RESTApi.Utility
             return GenerateCustomId(input);
         }
 
+        public static string GenerateIdForResults(string result)
+        {
+            string input = $"{result}{DateTime.Now}";
+            return GenerateCustomId(input);
+        }
+
         public static string GenerateSecretKey()
         {
             using (RNGCryptoServiceProvider rngProvider = new RNGCryptoServiceProvider())

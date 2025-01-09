@@ -13,13 +13,9 @@ namespace RESTApi.DataAccess.Repositories
             _db = db;
         }
 
-        public Report Update(string ReportId, ReportUpdateModel reportUpdateModel)
+        public Report Update(string ReportId, ReportAddOrUpdateModel reportUpdateModel)
         {
             Report reportExist = _db.Reports.Find(ReportId);
-            if(reportExist == null)
-            {
-                return null;
-            }
 
             reportExist.StudentId = reportUpdateModel.StudentId != null && reportUpdateModel.StudentId.Length > 0 ? 
                                     reportUpdateModel.StudentId : reportExist.StudentId;

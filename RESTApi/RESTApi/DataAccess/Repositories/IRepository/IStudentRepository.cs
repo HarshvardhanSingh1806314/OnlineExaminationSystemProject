@@ -5,6 +5,6 @@ namespace RESTApi.DataAccess.Repositories.IRepository
 {
     public interface IStudentRepository : IRepository<Student>
     {
-        Student Update(string StudentId, StudentUpdateModel studentUpdateModel);
+        Student Update(string StudentId, StudentAddOrUpdateModel studentUpdateModel);
     }
 }

@@ -13,13 +13,9 @@ namespace RESTApi.DataAccess.Repositories
             _db = db;
         }
 
-        public Admin Update(int AdminId, AdminUpdateModel adminUpdateModel)
+        public Admin Update(int AdminId, AdminAddOrUpdateModel adminUpdateModel)
         {
             Admin adminExist = _db.Admins.Find(AdminId);
-            if(adminExist == null)
-            {
-                return null;
-            }
 
             adminExist.AdminId = adminUpdateModel.Id > 100000 ? adminUpdateModel.Id : adminExist.AdminId;
 

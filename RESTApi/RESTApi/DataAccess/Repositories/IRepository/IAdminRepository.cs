@@ -5,6 +5,6 @@ namespace RESTApi.DataAccess.Repositories.IRepository
 {
     public interface IAdminRepository : IRepository<Admin>
     {
-        Admin Update(int AdminId, AdminUpdateModel adminUpdateModel);
+        Admin Update(int AdminId, AdminAddOrUpdateModel adminUpdateModel);
     }
 }

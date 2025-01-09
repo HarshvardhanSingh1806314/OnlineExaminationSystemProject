@@ -24,16 +24,31 @@
             // seeding DiffucltyLevel Table with difficulty levels
             context.DifficultyLevels.AddOrUpdate(
                 dl => dl.Id,
-                new DifficultyLevel { Id = IdGenerator.GenerateIdForDifficultyLevel("EASY"), LevelName = "EASY" },
-                new DifficultyLevel { Id = IdGenerator.GenerateIdForDifficultyLevel("MEDIUM"), LevelName = "MEDIUM" },
-                new DifficultyLevel { Id = IdGenerator.GenerateIdForDifficultyLevel("HARD"), LevelName = "HARD" }
+                new DifficultyLevel { 
+                    Id = IdGenerator.GenerateIdForDifficultyLevel(StaticDetails.DIFFICULTY_EASY),
+                    LevelName = StaticDetails.DIFFICULTY_EASY 
+                },
+                new DifficultyLevel { 
+                    Id = IdGenerator.GenerateIdForDifficultyLevel(StaticDetails.DIFFICULTY_MEDIUM), 
+                    LevelName = StaticDetails.DIFFICULTY_MEDIUM 
+                },
+                new DifficultyLevel { Id = IdGenerator.GenerateIdForDifficultyLevel(StaticDetails.DIFFICULTY_HARD), 
+                    LevelName = StaticDetails.DIFFICULTY_HARD 
+                }
             );
 
-            // seeding Roles Table with Roles
+            //// seeding Roles Table with Roles
             context.Roles.AddOrUpdate(
                 r => r.RoleId,
-                new Role { RoleId = IdGenerator.GenerateIdForRole("STUDENT"), Name = "STUDENT" },
-                new Role { RoleId = IdGenerator.GenerateIdForRole("ADMIN"), Name = "ADMIN" }
+                new Role { RoleId = IdGenerator.GenerateIdForRole(StaticDetails.ROLE_STUDENT), Name = StaticDetails.ROLE_STUDENT },
+                new Role { RoleId = IdGenerator.GenerateIdForRole(StaticDetails.ROLE_ADMIN), Name = StaticDetails.ROLE_ADMIN }
+            );
+
+            // seeding Result Table with Results
+            context.Results.AddOrUpdate(
+                r => r.ResultId,
+                new Result { ResultId = IdGenerator.GenerateIdForResults(StaticDetails.RESULT_PASSED), Name = StaticDetails.RESULT_PASSED },
+                new Result { ResultId = IdGenerator.GenerateIdForResults(StaticDetails.RESULT_FAILED), Name = StaticDetails.RESULT_FAILED }
             );
         }
     }

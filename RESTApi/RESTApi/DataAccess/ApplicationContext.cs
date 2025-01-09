@@ -26,6 +26,8 @@ namespace RESTApi.DataAccess
 
         public DbSet<UserRole> UserRoles { get; set; }
 
+        public DbSet<Result> Results { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

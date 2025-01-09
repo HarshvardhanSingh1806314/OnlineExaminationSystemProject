@@ -13,13 +13,9 @@ namespace RESTApi.DataAccess.Repositories
             _db = db;
         }
 
-        public Student Update(string StudentId, StudentUpdateModel studentUpdateModel)
+        public Student Update(string StudentId, StudentAddOrUpdateModel studentUpdateModel)
         {
             Student studentExist = _db.Students.Find(StudentId);
-            if(studentExist == null)
-            {
-                return null;
-            }
 
             studentExist.Username = studentUpdateModel.Username != null && studentUpdateModel.Username.Length > 0 ? 
                                     studentUpdateModel.Username : studentExist.Username;
