@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RESTApi.Middlewares;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,7 @@ namespace RESTApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.MessageHandlers.Add(new JwtAuthenticationHandler());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

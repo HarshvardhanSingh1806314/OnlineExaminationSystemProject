@@ -67,5 +67,15 @@ namespace RESTApi.Utility
             string input = $"{studentId}{testId}{DateTime.Now}";
             return GenerateCustomId(input);
         }
+
+        public static string GenerateSecretKey()
+        {
+            using (RNGCryptoServiceProvider rngProvider = new RNGCryptoServiceProvider())
+            {
+                byte[] keyBuffer = new byte[32];
+                rngProvider.GetBytes(keyBuffer);
+                return Convert.ToBase64String(keyBuffer);
+            }
+        }
     }
 }
