@@ -32,6 +32,11 @@ namespace RESTApi.DataAccess
 
             // adding foreign key constraint and adding on cascading properties
 
+            // Configure the primary key Id to not be an identity column
+            modelBuilder.Entity<Admin>()
+                .Property(a => a.AdminId)
+                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+
             // defining foreign key relationship between Report and Student
             modelBuilder.Entity<Report>()
                 .HasRequired(s => s.Student)

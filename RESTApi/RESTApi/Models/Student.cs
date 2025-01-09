@@ -20,8 +20,6 @@ namespace RESTApi.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password cannot be empty")]
-        [MinLength(8, ErrorMessage = "Password length cannot be less than 8 characters")]
-        [PasswordValidation(ErrorMessage: "Password must contain atleast one uppercase, one lowercase, one digit and one special character")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Phone No. cannot be empty")]
@@ -29,8 +27,7 @@ namespace RESTApi.Models
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "DOB cannot be empty")]
-        [DataType(DataType.Date)]
-        public DateTime DOB {get; set;}
+        public string DOB { get; set; }
 
         [Required(ErrorMessage = "Graduation Year cannot be empty")]
         [GraduationYearValidation(ErrorMessage: "Graduation year should be greater than or equal to 1970")]

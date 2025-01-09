@@ -81,6 +81,11 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=8.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -185,6 +190,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="CustomExceptions\InvalidCredentialsException.cs" />
+    <Compile Include="CustomExceptions\NullEntityException.cs" />
+    <Compile Include="CustomExceptions\OperationFailedException.cs" />
+    <Compile Include="CustomExceptions\UserAlreadyExistException.cs" />
+    <Compile Include="CustomExceptions\UserNotFoundException.cs" />
     <Compile Include="CustomValidations\AdminIdValidation.cs" />
     <Compile Include="CustomValidations\GraduationYearValidation.cs" />
     <Compile Include="DataAccess\Repositories\AdminRepository.cs" />
@@ -200,21 +210,9 @@
     <Compile Include="DataAccess\Repositories\TestRepository.cs" />
     <Compile Include="DataAccess\Repositories\StudentRepository.cs" />
     <Compile Include="Middlewares\JwtAuthenticationHandler.cs" />
-    <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.cs" />
-    <Compile Include="Migrations\202501080645034_addDifficultyLevelToDb.designer.cs">
-      <DependentUpon>202501080645034_addDifficultyLevelToDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202501080945455_addEntitiesToDb.cs" />
-    <Compile Include="Migrations\202501080945455_addEntitiesToDb.designer.cs">
-      <DependentUpon>202501080945455_addEntitiesToDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202501081620544_addRolesAndUserRolesToDb.cs" />
-    <Compile Include="Migrations\202501081620544_addRolesAndUserRolesToDb.designer.cs">
-      <DependentUpon>202501081620544_addRolesAndUserRolesToDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202501081658532_changedDataTypeOfGraduationYearFromStringToInt.cs" />
-    <Compile Include="Migrations\202501081658532_changedDataTypeOfGraduationYearFromStringToInt.designer.cs">
-      <DependentUpon>202501081658532_changedDataTypeOfGraduationYearFromStringToInt.cs</DependentUpon>
+    <Compile Include="Migrations\202501091701165_addEntitiesToDb.cs" />
+    <Compile Include="Migrations\202501091701165_addEntitiesToDb.designer.cs">
+      <DependentUpon>202501091701165_addEntitiesToDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -248,22 +246,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202501080645034_addDifficultyLevelToDb.resx">
-      <DependentUpon>202501080645034_addDifficultyLevelToDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202501080945455_addEntitiesToDb.resx">
-      <DependentUpon>202501080945455_addEntitiesToDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202501081620544_addRolesAndUserRolesToDb.resx">
-      <DependentUpon>202501081620544_addRolesAndUserRolesToDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202501081658532_changedDataTypeOfGraduationYearFromStringToInt.resx">
-      <DependentUpon>202501081658532_changedDataTypeOfGraduationYearFromStringToInt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202501091701165_addEntitiesToDb.resx">
+      <DependentUpon>202501091701165_addEntitiesToDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

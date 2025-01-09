@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RESTApi.Models
 {
@@ -9,5 +10,8 @@ namespace RESTApi.Models
 
         [Required(ErrorMessage = "Role Id cannot be empty")]
         public string RoleId { get; set; }
+
+        [ForeignKey("RoleId")]
+        public Role Role { get; set; }
     }
 }

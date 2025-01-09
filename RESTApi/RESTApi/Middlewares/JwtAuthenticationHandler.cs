@@ -58,7 +58,8 @@ namespace RESTApi.Middlewares
         private bool IsAuthRoute(HttpRequestMessage request)
         {
             string path = request.RequestUri.AbsolutePath.ToLower();
-            return path.Contains("/api/auth/login") || path.Contains("/api/auth/register");
+            return path.Contains("/api/auth/student/login") || path.Contains("/api/auth/student/register")
+                || path.Contains("/api/auth/admin/login") || path.Contains("api/auth/admin/register");
         }
 
         // validating JWT token

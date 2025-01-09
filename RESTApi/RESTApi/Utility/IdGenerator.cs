@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -34,7 +35,7 @@ namespace RESTApi.Utility
             return GenerateCustomId(input);
         }
 
-        public static int GenerateIdForAdmin(ArrayList listOfExistingAdminIds)
+        public static int GenerateIdForAdmin(List<int> listOfExistingAdminIds)
         {
             Random adminIdGenerator = new Random();
             int adminId = adminIdGenerator.Next(100000, 999999);

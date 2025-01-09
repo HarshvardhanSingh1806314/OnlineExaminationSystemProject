@@ -21,7 +21,7 @@ namespace RESTApi.DataAccess.Repositories
                 return null;
             }
 
-            adminExist.Id = adminUpdateModel.Id > 100000 ? adminUpdateModel.Id : adminExist.Id;
+            adminExist.AdminId = adminUpdateModel.Id > 100000 ? adminUpdateModel.Id : adminExist.AdminId;
 
             adminExist.Username = adminUpdateModel.Username != null && adminUpdateModel.Username.Length > 0 ?
                                   adminUpdateModel.Username : adminExist.Username;

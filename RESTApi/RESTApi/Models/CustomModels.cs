@@ -5,6 +5,9 @@ namespace RESTApi.Models
     /* These models will be used when the request to update any of the respective
      * database models come.
      * 
+     * The login models will be used in login Post methods for both Student and Admin
+     * and these login models will be populated with the values provided in the request body
+     * 
      * These models will be populated with the respective fields in the request body
      */
     public class CustomModels
@@ -41,7 +44,7 @@ namespace RESTApi.Models
 
             public string PhoneNumber { get; set; }
 
-            public DateTime DOB { get; set; }
+            public string DOB { get; set; }
 
             public int GraduationYear { get; set; }
 
@@ -84,6 +87,52 @@ namespace RESTApi.Models
             public int TotalAttemptsInHardQuestions { get; set; }
 
             public int CorrectAttemptsInHardQuestions { get; set; }
+        }
+
+        public struct StudentLoginModel
+        {
+            public string Email { get; set; }
+
+            public string Password { get; set; }
+        }
+
+        public struct StudentRegisterModel
+        {
+            public string Username { get; set; }
+
+            public string Email { get; set; }
+
+            public string Password { get; set; }
+
+            public string PhoneNumber { get; set; }
+
+            public string DOB { get; set; }
+
+            public int GraduationYear { get; set; }
+
+            public string City { get; set; }
+
+            public string UniversityName { get; set; }
+
+            public string DegreeMajor { get; set; }
+        }
+
+        public struct AdminLoginModel
+        {
+            public int AdminId { get; set; }
+
+            public string Password { get; set; }
+        }
+
+        public struct AdminRegisterModel
+        {
+            public string Username { get; set; }
+
+            public string EmployeeEmail { get; set; }
+
+            public string OrganizationName { get; set; }
+
+            public int EmployeeId { get; set; }
         }
     }
 }
