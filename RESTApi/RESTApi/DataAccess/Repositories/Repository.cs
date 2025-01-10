@@ -55,7 +55,7 @@ namespace RESTApi.DataAccess.Repositories
             IQueryable<T> query = this.dbSet;
             if(filter != null)
             {
-                query = this.dbSet.Where(filter);
+                query = query.Where(filter);
             }
 
             if(!string.IsNullOrEmpty(includeProperties))

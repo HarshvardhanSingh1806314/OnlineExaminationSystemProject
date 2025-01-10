@@ -34,6 +34,8 @@ namespace RESTApi.Models
             public string Option4 { get; set; }
 
             public string Answer { get; set; }
+
+            public string DifficultyLevel { get; set; }
         }
 
         public struct StudentAddOrUpdateModel

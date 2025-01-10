@@ -131,7 +131,7 @@ namespace RESTApi.Controllers
                     throw new OperationFailedException("Test cannot be removed");
                 }
             }
-            catch(NullEntityException ex)
+            catch(NullEntityException)
             {
                 return NotFound();
             }
@@ -139,7 +139,7 @@ namespace RESTApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            catch(UnauthorizedAccessException ex)
+            catch(UnauthorizedAccessException)
             {
                 return Unauthorized();
             }
@@ -185,7 +185,7 @@ namespace RESTApi.Controllers
                     throw new OperationFailedException("Test Updation Failed");
                 }
             }
-            catch(NullEntityException ex)
+            catch(NullEntityException)
             {
                 return NotFound();
             }
@@ -197,7 +197,7 @@ namespace RESTApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            catch(UnauthorizedAccessException ex)
+            catch(UnauthorizedAccessException)
             {
                 return Unauthorized();
             }
@@ -218,14 +218,14 @@ namespace RESTApi.Controllers
 
                 // fetching all the test that current admin has created
                 List<Test> testList = _testRepository.GetAll(t => t.AdminId == adminId).ToList();
-                if(testList == null)
+                if (testList == null || testList.Count == 0)
                 {
                     throw new NullEntityException("No Tests Available");
                 }
 
                 return Ok(testList);
             }
-            catch(NullEntityException ex)
+            catch(NullEntityException)
             {
                 return NotFound();
             }

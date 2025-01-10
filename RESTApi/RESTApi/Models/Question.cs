@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace RESTApi.Models
 {
@@ -40,12 +37,14 @@ namespace RESTApi.Models
         public string DifficultyLevelId { get; set; } 
 
         [ForeignKey("DifficultyLevelId")]
+        [JsonIgnore]
         public virtual DifficultyLevel DifficultyLevel { get; set; }
 
         [Required(ErrorMessage = "Test cannot be empty")]
         public string TestId { get; set; }
 
         [ForeignKey("TestId")]
+        [JsonIgnore]
         public virtual Test Test { get; set; }
     }
 }

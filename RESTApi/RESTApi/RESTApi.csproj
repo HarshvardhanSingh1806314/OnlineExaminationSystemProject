@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="CustomExceptions\ConflictException.cs" />
     <Compile Include="CustomExceptions\EntityAlreadyExistException.cs" />
     <Compile Include="CustomExceptions\InvalidCredentialsException.cs" />
     <Compile Include="CustomExceptions\NullEntityException.cs" />
