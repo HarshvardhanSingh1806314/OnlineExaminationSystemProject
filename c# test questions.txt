@@ -1,0 +1,107 @@
+{
+    "Id": "2JEvUGn5cqqqj0TGqerY4RGjxNqlx2YBWWQUhfxWvsA=",
+    "Description": " Which of the following is a correct way to declare a variable of type int in C#?",
+    "Option1": "int x = 10;",
+    "Option2": "var x = 10;",
+    "Option3": "integer x = 10;",
+    "Option4": "x = 10;",
+    "Answer": "int x = 10;",
+    "LevelName": "EASY",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "yh+svAtETIv5zAl6xB0o5JsOJxoosUK07K4rcf0IXjE=",
+    "Description": "int x = 5;\nx++;\nConsole.WriteLine(x);",
+    "Option1": "5",
+    "Option2": "6",
+    "Option3": "4",
+    "Option4": "Error",
+    "Answer": "6",
+    "LevelName": "EASY",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "5VHmUP4ugobdsUt2AuzzYBl/ytlJjdIaJCsEq4f7UWU=",
+    "Description": "Which keyword is used to declare a constant in C#?",
+    "Option1": "static",
+    "Option2": "readonly",
+    "Option3": "const",
+    "Option4": "final",
+    "Answer": "const",
+    "LevelName": "EASY",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "Xh2Cn/W9mPorzijPK9QTFGUCPn0SYumMBc29BzJ8ZtA=",
+    "Description": "Which of the following statements is used to handle exceptions in C#?",
+    "Option1": "catch",
+    "Option2": "throw",
+    "Option3": "try-catch",
+    "Option4": "finally",
+    "Answer": "try-catch",
+    "LevelName": "MEDIUM",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "gm/HAbnL8vhhEjo64nPE96Uek7b5pIsDdfxLEvH0hJk=",
+    "Description": "What is the default value of a boolean variable in C#?",
+    "Option1": "0",
+    "Option2": "null",
+    "Option3": "false",
+    "Option4": "true",
+    "Answer": "false",
+    "LevelName": "MEDIUM",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "n8+PCj+JFeimTAnhqiv91/gfa2JvxEaC11x9rI0thGw=",
+    "Description": "What does the using statement do in C#?",
+    "Option1": "Imports namespaces",
+    "Option2": "Imports classes",
+    "Option3": "Declares variables",
+    "Option4": "Automatically disposes of objects",
+    "Answer": "Automatically disposes of objects",
+    "LevelName": "MEDIUM",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "gc6haU6Ci0kwz/+6jIgphHOZRbunILCyJL4TXXgJpXc=",
+    "Description": "Which of the following access modifiers can be used for methods in C#?",
+    "Option1": "public",
+    "Option2": "private",
+    "Option3": "protected",
+    "Option4": "All of the above",
+    "Answer": "All of the above",
+    "LevelName": "HARD",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "NpJVgphjVuj/ejo8SChIQ1SXvVaxIqLOLFL+QNgWkVU=",
+    "Description": "Which of the following is used to declare a class in C#?",
+    "Option1": "class ClassName",
+    "Option2": "new ClassName()",
+    "Option3": "def ClassName",
+    "Option4": "function ClassName()",
+    "Answer": "class ClassName",
+    "LevelName": "HARD",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}
+
+{
+    "Id": "YuE2WeiDX+vjBU8AHULVYbOl0pCSVylJ0TpT9+iD1AQ=",
+    "Description": "What is the purpose of the this keyword in C#?",
+    "Option1": "Refers to the current class",
+    "Option2": "Refers to the current instance of the class",
+    "Option3": "Refers to the base class",
+    "Option4": "Used to access static members",
+    "Answer": "Refers to the current instance of the class",
+    "LevelName": "HARD",
+    "TestId": "FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="
+}

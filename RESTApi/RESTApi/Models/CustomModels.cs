@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RESTApi.Models
 {
@@ -76,10 +77,6 @@ namespace RESTApi.Models
 
         public struct ReportAddOrUpdateModel
         {
-            public string StudentId { get; set; }
-
-            public string TestId { get; set; }
-
             public int TotalAttemptsInEasyQuestions { get; set; }
 
             public int CorrectAttemptsInEasyQuestions { get; set; }
@@ -137,6 +134,22 @@ namespace RESTApi.Models
             public string OrganizationName { get; set; }
 
             public int EmployeeId { get; set; }
+        }
+
+        public struct QuestionResponse
+        {
+            public string QuestionId { get; set; }
+
+            public string Answer { get; set; }
+        }
+
+        public struct SubmitTestModel
+        {
+            public List<QuestionResponse> EasyLevel { get; set; }
+
+            public List<QuestionResponse> MediumLevel { get; set; }
+
+            public List<QuestionResponse> HardLevel { get; set; }
         }
     }
 }

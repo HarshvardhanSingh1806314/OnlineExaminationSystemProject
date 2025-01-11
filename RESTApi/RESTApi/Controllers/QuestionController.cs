@@ -71,10 +71,10 @@ namespace RESTApi.Controllers
                 // generating new question id
                 string[] options = new string[]
                 {
-                    questionAddModel.Option1,
-                    questionAddModel.Option2,
-                    questionAddModel.Option3,
-                    questionAddModel.Option4
+                    questionAddModel.Option1.Trim(),
+                    questionAddModel.Option2.Trim(),
+                    questionAddModel.Option3.Trim(),
+                    questionAddModel.Option4.Trim()
                 };
                 string questionId = IdGenerator.GenerateIdForQuestions(questionAddModel.Description, options, questionAddModel.Answer);
 
@@ -85,12 +85,12 @@ namespace RESTApi.Controllers
                 Question question = new Question
                 {
                     Id = questionId,
-                    Description = questionAddModel.Description,
+                    Description = questionAddModel.Description.Trim(),
                     Option1 = questionAddModel.Option1,
                     Option2 = questionAddModel.Option2,
                     Option3 = questionAddModel.Option3,
                     Option4 = questionAddModel.Option4,
-                    Answer = questionAddModel.Answer,
+                    Answer = questionAddModel.Answer.Trim(),
                     DifficultyLevelId = difficultyLevelId,
                     TestId = testId
                 };
