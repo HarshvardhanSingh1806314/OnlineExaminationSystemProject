@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using FrontEnd.AsyncServices;
 using FrontEnd.Models;
+using Newtonsoft.Json;
+using static FrontEnd.Models.ResponseModels;
 
 namespace FrontEnd.Controllers
 {
@@ -18,14 +24,18 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
+            Response.Cookies.Remove("ACCESS_TOKEN");
             ViewBag.Message = "Your User page.";
             return View();
         }
         [HttpPost]
-        public ActionResult Login(StudentLogin  studentlogin)
+        public async Task<ActionResult> Login(StudentLogin  studentlogin)
         {
             if(ModelState.IsValid)
             {
+                string accessToken = await RequestService.StudentLoginServive(studentlogin);
+                HttpCookie httpCookie = new HttpCookie("ACCESS_TOKEN", accessToken);
+                Response.Cookies.Add(httpCookie);
                 return RedirectToAction(nameof(Index));
             }
             return View(studentlogin);
@@ -38,12 +48,14 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(Student student)
+        public async Task<ActionResult> Register(Student student)
         {
             if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Login));
+                if (await RequestService.StudentRegisterService(student))
+                    return RedirectToAction(nameof(Login));
             }
+
             return View(student);
         }
         public ActionResult Reset()

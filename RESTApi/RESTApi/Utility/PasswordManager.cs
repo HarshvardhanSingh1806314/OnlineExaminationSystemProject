@@ -65,7 +65,7 @@ namespace RESTApi.Utility
             Random randomNumberGenerator = new Random();
             for(int i=1;i<=AdminPasswordMinimumLength;i++)
             {
-                switch(Math.Round(Math.Abs(randomNumberGenerator.NextDouble() * (CharacterCategories - i))))
+                switch(Math.Round(Math.Abs(randomNumberGenerator.NextDouble() * (CharacterCategories - 1))))
                 {
                     case 0:
                         index = Convert.ToInt32(Math.Round(Math.Abs(randomNumberGenerator.NextDouble() * LowerCaseCharacterSet.Length - i)));

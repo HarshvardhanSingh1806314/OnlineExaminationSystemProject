@@ -1,7 +1,9 @@
-﻿using FrontEnd.Models;
+﻿using FrontEnd.AsyncServices;
+using FrontEnd.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,16 +19,19 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
+            Response.Cookies.Remove("ACCESS_TOKEN");
             ViewBag.Message = "Your Admin page.";
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(Admin admin)
+        public async Task<ActionResult> Login(Admin admin)
         {
             if(ModelState.IsValid)
             {
+                string accessToken = await RequestService.AdminLoginService(admin);
+                HttpCookie httpCookie = new HttpCookie("ACCESS_TOKEN", accessToken);
+                Response.Cookies.Add(httpCookie);
                 return RedirectToAction(nameof(AdminPortal));
             }
             return View(admin);
