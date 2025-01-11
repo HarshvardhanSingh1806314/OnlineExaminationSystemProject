@@ -1,0 +1,40 @@
+﻿@*model IEnumerable.FrontEnd.Models.Reports>*@
+@{ ViewBag.Title = "GetReports"; }
+
+<h2> Student Reports  </h2>
+
+@*@foreach (var item in Model)
+    {
+    <ul style="color:firebrick;">
+        <li>@item.Option 2</li>
+        <li>@item.Option 3</li>
+        <li>@item.CorrectAttempsInEasyQuestions</li>
+        <li>@item.CorrectAttemptsInMediumQuestions</li>
+        <li>@item.CorrectAttemptsInHardQuestions</li>
+
+
+    </ul>}*@
+
+
+@*<table border="1" style="width:100%; text-align:left; border-collapse:collapse;">
+    <thead>
+        <tr style="background-color:lightgray;">
+            <th>Option 2</th>
+            <th>Option 3</th>
+            <th>Correct Attempts in Easy Questions</th>
+            <th>Correct Attempts in Medium Questions</th>
+            <th>Correct Attempts in Hard Questions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>@item.Option2</td>
+    <td>@item.Option3</td>
+    <td>@item.CorrectAttempsInEasyQuestions</td>
+    <td>@item.CorrectAttemptsInMediumQuestions</td>
+    <td>@item.CorrectAttemptsInHardQuestions</td>
+</tr>}
+    </tbody>
+</table>*@

@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "ViewReports";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Students</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #1e1e1e, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        .form-group {
+            margin: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, input {
+            padding: 8px;
+            width: 200px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ff1a1a, #b30000);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+            button:hover {
+                background: linear-gradient(90deg, #b30000, #ff1a1a);
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Students</h1>
+        <form class="search-form" action="/students/search" method="POST">
+            <div class="form-group">
+                @Html.DropDownList("SelectTechnology", new List<SelectListItem>
+         { new SelectListItem{Text="Select Technology", Value="-1"},
+            new SelectListItem{Text="CSharp", Value="1"},
+            new SelectListItem{Text="SQL", Value="2"},
+            new SelectListItem{Text="Dotnet", Value="3"},
+            new SelectListItem{Text="Java", Value="4"},
+        }, new { @class = "custom-select" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownList("SelectState", new List<SelectListItem>
+         { new SelectListItem{Text="Select State", Value="-1"},
+            new SelectListItem{Text="Andhra Pradesh", Value="1"},
+            new SelectListItem{Text="Telangana", Value="2"},
+            new SelectListItem{Text="Karnataka", Value="3"},
+            new SelectListItem{Text="TamilNaidu", Value="4"},
+            new SelectListItem{Text="UttarPradesh", Value="5"},
+        }, new { @class = "custom-select" })
+            </div>
+            
+            <div class="form-group">
+                @Html.DropDownList("SelectCity", new List<SelectListItem>
+         { new SelectListItem{Text="Select City", Value="-1"},
+            new SelectListItem{Text="Vizag", Value="1"},
+            new SelectListItem{Text="Hyderabad", Value="2"},
+            new SelectListItem{Text="Banglore", Value="3"},
+            new SelectListItem{Text="Chennai", Value="4"},
+            new SelectListItem{Text="Noida", Value="5"},
+        }, new { @class = "custom-select" })
+            </div>
+
+            <div>
+                @*<button onclick="location.href='@Url.Action("Reports", "Admin")'">Search Students</button>*@
+                <a href="@Url.Action("StudentReports", "Admin")" style="color:red;">
+                    @*class="btn btn-primary btn-lg action-button"*@
+                    Search Students
+                </a>
+            </div>
+        </form>
+        <!--<table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email-ID</th>
+                    <th>Mobile Number</th>
+                    <th>City</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody>-->
+                <!-- Dynamic rows will be populated here -->
+            <!--</tbody>
+        </table>-->
+    </div>
+</body>
+</html>
+
