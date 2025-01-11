@@ -33,7 +33,7 @@
         section {
             position: absolute;
             width: 100vw;
-            height: 150vh;
+            height: 170vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -467,58 +467,65 @@
         <div class="signin">
             <div class="content">
                 <h2>Register</h2>
-                <div class="form">
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.Username, "UserName")
-                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.Email, "Email")
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
-                    </div>
-
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.Password, "Password")
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.Password, "UserName")
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.DOB, "DOB")
-                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.GraduationYear, "GraduationYear")
-                        @Html.EditorFor(model => model.GraduationYear, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.GraduationYear, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.City, "City")
-                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.UniversityName, "UniversityName")
-                        @Html.EditorFor(model => model.UniversityName, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.UniversityName, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        @Html.LabelFor(model => model.DegreeMajor, "DegreeMajor")
-                        @Html.EditorFor(model => model.DegreeMajor, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.ValidationMessageFor(model => model.DegreeMajor, "", new { @class = "text-danger" })*@
-                    </div>
-                    <div class="inputbox">
-                        <input type="submit" value="Register">
-                    </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+            <div class="form">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.Username, "UserName")
+                    @Html.TextBoxFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })*@
                 </div>
-            </div>
+                
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.Email, "Email")
+                    @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" }, type = "email" })
+                    @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                </div>
+
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.Password, "Password")
+                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.PhoneNumber, "Phone Number")
+                    @Html.TextBoxFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" }, type = "number" })
+                    @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.DOB, "DOB")
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.GraduationYear, "GraduationYear")
+                    @Html.TextBoxFor(model => model.GraduationYear, new { htmlAttributes = new { @class = "form-control" }, type = "number", min = 1999, max = DateTime.Now.Year })
+                    @*@Html.ValidationMessageFor(model => model.GraduationYear, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.City, "City")
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.UniversityName, "UniversityName")
+                    @Html.TextBoxFor(model => model.UniversityName, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => model.UniversityName, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    @Html.LabelFor(model => model.DegreeMajor, "DegreeMajor")
+                    @Html.TextBoxFor(model => model.DegreeMajor, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => model.DegreeMajor, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="inputbox">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+
+
+            </div>}
+                </div>
         </div>
     </section>
 </body>

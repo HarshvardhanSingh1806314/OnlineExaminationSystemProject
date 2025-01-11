@@ -22,20 +22,28 @@ namespace FrontEnd.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(Student s)
+        public ActionResult Login(StudentLogin  studentlogin)
         {
-            return View();
+            if(ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(studentlogin);
         }
         public ActionResult Register()
         {
             ViewBag.Message = "Your User Register page.";
 
-            return View(new Student());
+            return View();
         }
 
         [HttpPost]
         public ActionResult Register(Student student)
         {
+            if(ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Login));
+            }
             return View(student);
         }
         public ActionResult Reset()

@@ -19,12 +19,16 @@ namespace FrontEnd.Controllers
         {
             ViewBag.Message = "Your Admin page.";
 
-            return View(new Admin());
+            return View();
         }
 
         [HttpPost]
         public ActionResult Login(Admin admin)
         {
+            if(ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(AdminPortal));
+            }
             return View(admin);
         }
         public ActionResult AdminPortal()

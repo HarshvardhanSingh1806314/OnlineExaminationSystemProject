@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserDashBoardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -133,6 +134,7 @@
     <Compile Include="Models\Resetpassword.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentLogin.cs" />
     <Compile Include="Models\Tests.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,11 +144,24 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CSS\style 1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\code1.png" />
+    <Content Include="Images\code2.png" />
+    <Content Include="Images\code3.png" />
+    <Content Include="Images\code4.png" />
+    <Content Include="Images\code5.png" />
+    <Content Include="Images\code6.png" />
+    <Content Include="Images\google1.png" />
+    <Content Include="Images\Image %2810%29.jpg" />
+    <Content Include="Images\Image %288%29.jpg" />
+    <Content Include="Images\Image %289%29.jpg" />
+    <Content Include="Images\Image.jpg" />
     <Content Include="Images\logo.jpg" />
+    <Content Include="JavaScript\index.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -187,6 +202,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Reset.cshtml" />
     <Content Include="Views\User\Question.cshtml" />
+    <Content Include="Views\UserDashBoard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
