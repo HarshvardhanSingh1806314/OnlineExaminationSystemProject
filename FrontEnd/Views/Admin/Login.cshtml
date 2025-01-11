@@ -1,0 +1,163 @@
+﻿@model FrontEnd.Models.Admin
+@*@{ ViewBag.Title = "AdminPage"; }*@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(56, 0, 0, 1) 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            overflow: scroll;
+        }
+
+        .login-container {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .login-container h1 {
+                margin-bottom: 20px;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .form-group label {
+                display: block;
+                justify-content: center;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background: #222;
+                color: white;
+            }
+
+                .form-group input:focus {
+                    outline: none;
+                    border-color: red;
+                }
+
+        .btn {
+            width: auto;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-primary {
+            background-color: red;
+            color: white;
+            width: auto;
+        }
+
+            .btn-primary:hover {
+                background-color: darkred;
+            }
+
+        .text-danger {
+            color: red;
+            font-size: 12px;
+        }
+
+        img {
+            height: 50px;
+            width: 50px;
+            justify-content: center;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="~/Images/logo.jpg" alt="Logo" />
+        <h1>Admin Login</h1>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Id, new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, "Username")
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeEmail, "Email")
+                    @Html.EditorFor(model => model.EmployeeEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmployeeEmail, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, "Password")
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationName, "Organization Name")
+                    @Html.EditorFor(model => model.OrganizationName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OrganizationName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeId, "Employee ID")
+                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                </div>
+            </div>}
+
+    <div>
+        @*@Html.ActionLink("Login", "AdminPortal")*@
+        @*<button type="submit" class="btn btn-primary" formaction="@Url.Action("AdminPortal", "Admin")">Login</button>*@
+        <a href="@Url.Action("AdminPortal", "Admin")" class="btn btn-primary btn-lg action-button">
+           Login
+        </a>
+
+    </div>
+    </div>
+</body>
+
+</html>

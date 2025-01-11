@@ -1,0 +1,171 @@
+﻿@model FrontEnd.Models.Tests
+@{
+    ViewBag.Title = "AddTopic";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Topic</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #1e1e1e, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            overflow: scroll;
+        }
+
+        .container {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7);
+            width: 100%;
+            max-width: 450px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            align-items:center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: white;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+            input[type="submit"] {
+                margin-top: 15px;
+                background: linear-gradient(90deg, #ff1a1a, #b30000);
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+                input[type="submit"]:hover {
+                    background: linear-gradient(90deg, #b30000, #ff1a1a);
+                }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        /*img {
+            height: 50px;
+            width: 50px;
+            margin:0 auto;
+            display:block;
+            background-color:gray;
+            border-radius:5px;
+        }*/
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        @*<img src="~/Images/logo.jpg" alt="Logo" />*@
+        @*<br />*@
+        <h1>Add Topic</h1>
+        <form action="/questions/add" method="POST">
+            <!-- TestId -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestId, "TestId")
+                @Html.EditorFor(model => model.TestId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TestId, "", new { @class = "text-danger" })
+
+            </div>
+
+            <!-- Name -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, "Name")
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, "Description")
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <!-- TotalNoOfEasyQuestions -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalNoOfEasyQuestions, "TotalNoOfEasyQuestions")
+                @Html.EditorFor(model => model.TotalNoOfEasyQuestions, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalNoOfEasyQuestions, "", new { @class = "text-danger" })
+
+            </div>
+
+            <!-- TotalNoOfMediumQuestions -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalNoOfMediumQuestions, "TotalNoOfMediumQuestions")
+                @Html.EditorFor(model => model.TotalNoOfMediumQuestions, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalNoOfMediumQuestions, "", new { @class = "text-danger" })
+
+            </div>
+
+            <!-- TotalNoOfHardQuestions -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalNoOfHardQuestions, "TotalNoOfHardQuestions")
+                @Html.EditorFor(model => model.TotalNoOfHardQuestions, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalNoOfHardQuestions, "", new { @class = "text-danger" })
+
+            </div>
+
+            <!-- TotalNoOfQuestions -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalNoOfQuestions, "TotalNoOfQuestions")
+                @Html.EditorFor(model => model.TotalNoOfQuestions, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalNoOfQuestions, "", new { @class = "text-danger" })
+
+            </div>
+
+            <!-- Submit Button -->
+            @*<input onclick="location.href='@Url.Action("GetAllTopics", "Admin")'" type="submit" value="Add Topic">*@
+            <a href="@Url.Action("GetAllTopics", "Admin")" class="btn btn-secondary btn-lg action-button" style="align-items:center;color:red;">
+                Add Topic
+            </a>
+        </form>
+    </div>
+
+</body>
+</html>

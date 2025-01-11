@@ -1,0 +1,125 @@
+﻿@model FrontEnd.Models.Questions
+@{ ViewBag.Title = "Delete Question"; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Question</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #1e1e1e, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            overflow: scroll;
+        }
+
+        .container {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7);
+            width: 100%;
+            max-width: 450px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: white;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+            input[type="submit"] {
+                margin-top: 15px;
+                background: linear-gradient(90deg, #ff1a1a, #b30000);
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+                input[type="submit"]:hover {
+                    background: linear-gradient(90deg, #b30000, #ff1a1a);
+                }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        /*img {
+            height: 50px;
+            width: 50px;
+            margin:0 auto;
+            display:block;
+            background-color:gray;
+            border-radius:5px;
+        }*/
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Delete Question</h1>
+        <form action="/questions/add" method="POST">
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestId, "Test Name")
+                @Html.EditorFor(model => model.TestId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TestId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Id, "Id")
+                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+            </div>
+
+
+            <!-- Submit Button -->
+            @*<input type="submit" value="Delete Question">*@
+            <a href="@Url.Action("GetAllQuestions", "Admin")" class="btn btn-secondary btn-lg action-button" style="align-items:center;color:red;">
+                Delete Question
+            </a>
+        </form>
+    </div>
+
+</body>
+</html>
