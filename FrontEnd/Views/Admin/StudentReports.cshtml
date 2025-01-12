@@ -1,40 +1,99 @@
-﻿@*model IEnumerable.FrontEnd.Models.Reports>*@
-@{ ViewBag.Title = "GetReports"; }
+﻿@model IEnumerable<FrontEnd.Models.ReportsData>
 
-<h2> Student Reports  </h2>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorrectAttemptsInEasyQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAttemptsInEasyQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalNoOfEasyQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorrectAttemptsInMediumQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAttemptsInMediumQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalNoOfMediumQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorrectAttemptsInHardQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAttemptsInHardQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalNoOfHardQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th></th>
+    </tr>
 
-@*@foreach (var item in Model)
-    {
-    <ul style="color:firebrick;">
-        <li>@item.Option 2</li>
-        <li>@item.Option 3</li>
-        <li>@item.CorrectAttempsInEasyQuestions</li>
-        <li>@item.CorrectAttemptsInMediumQuestions</li>
-        <li>@item.CorrectAttemptsInHardQuestions</li>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorrectAttemptsInEasyQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAttemptsInEasyQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalNoOfEasyQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorrectAttemptsInMediumQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAttemptsInMediumQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalNoOfMediumQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorrectAttemptsInHardQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAttemptsInHardQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalNoOfHardQuestions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+    </tr>
+}
 
-
-    </ul>}*@
-
-
-@*<table border="1" style="width:100%; text-align:left; border-collapse:collapse;">
-    <thead>
-        <tr style="background-color:lightgray;">
-            <th>Option 2</th>
-            <th>Option 3</th>
-            <th>Correct Attempts in Easy Questions</th>
-            <th>Correct Attempts in Medium Questions</th>
-            <th>Correct Attempts in Hard Questions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
-    <td>@item.Option2</td>
-    <td>@item.Option3</td>
-    <td>@item.CorrectAttempsInEasyQuestions</td>
-    <td>@item.CorrectAttemptsInMediumQuestions</td>
-    <td>@item.CorrectAttemptsInHardQuestions</td>
-</tr>}
-    </tbody>
-</table>*@
+</table>

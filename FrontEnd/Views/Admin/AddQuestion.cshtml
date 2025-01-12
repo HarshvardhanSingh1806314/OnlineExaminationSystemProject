@@ -100,77 +100,84 @@
     <div class="container">
         @*<img src="~/Images/logo.jpg" alt="Logo" />*@
         <h1>Add Question</h1>
-        <form action="/questions/add" method="POST">
-            <!-- Subject Selection -->
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
             <div class="form-group">
-                @Html.DropDownList("Subject", new List<SelectListItem>
-         { new SelectListItem{Text="Select Subject", Value="-1"},
-            new SelectListItem{Text="CSharp", Value="1"},
-            new SelectListItem{Text="SQL", Value="2"},
-            new SelectListItem{Text="Dotnet", Value="3"},
-            new SelectListItem{Text="Java", Value="4"},
-        }, new { @class = "custom-select" })
-            </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <!-- Subject Selection -->
+                <div class="form-group">
+                    @Html.DropDownList("Subject", new List<SelectListItem>
+             { new SelectListItem{Text="Select Subject", Value="-1"},
+                new SelectListItem{Text="CSharp", Value="1"},
+                new SelectListItem{Text="SQL", Value="2"},
+                new SelectListItem{Text="Dotnet", Value="3"},
+                new SelectListItem{Text="Java", Value="4"},
+            }, new { @class = "custom-select" })
+                </div>
 
-            <!-- Question Input -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.Description, "Description")
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
+                <!-- Question Input -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, "Description")
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
 
-            <!-- Option A -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.Option1, "Option 1")
-                @Html.EditorFor(model => model.Option1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Option1, "", new { @class = "text-danger" })
-            </div>
+                <!-- Option A -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Option1, "Option 1")
+                    @Html.EditorFor(model => model.Option1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Option1, "", new { @class = "text-danger" })
+                </div>
 
-            <!-- Option B -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.Option2, "Option 2")
-                @Html.EditorFor(model => model.Option2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Option2, "", new { @class = "text-danger" })
-            </div>
+                <!-- Option B -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Option2, "Option 2")
+                    @Html.EditorFor(model => model.Option2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Option2, "", new { @class = "text-danger" })
+                </div>
 
-            <!-- Option C -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.Option3, "Option 3")
-                @Html.EditorFor(model => model.Option3, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Option3, "", new { @class = "text-danger" })
-            </div>
+                <!-- Option C -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Option3, "Option 3")
+                    @Html.EditorFor(model => model.Option3, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Option3, "", new { @class = "text-danger" })
+                </div>
 
-            <!-- Option D -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.Option4, "Option 4")
-                @Html.EditorFor(model => model.Option4, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Option4, "", new { @class = "text-danger" })
-            </div>
+                <!-- Option D -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Option4, "Option 4")
+                    @Html.EditorFor(model => model.Option4, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Option4, "", new { @class = "text-danger" })
+                </div>
 
-            <!-- Correct Answer -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.Answer, "Correct Answer")
-                @Html.EditorFor(model => model.Answer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
-            </div>
+                <!-- Correct Answer -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Answer, "Correct Answer")
+                    @Html.EditorFor(model => model.Answer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+                </div>
 
-            <!-- Difficulty Level -->
-            <div class="form-group">
-                @Html.DropDownList("DifficultyLevel", new List<SelectListItem>
-         { new SelectListItem{Text="Select DifficultyLevel", Value="-1"},
-            new SelectListItem{Text="Easy", Value="1"},
-            new SelectListItem{Text="Medium", Value="2"},
-            new SelectListItem{Text="Hard", Value="3"},
-        }, new { @class = "custom-select" })
-            </div>
+                <!-- Difficulty Level -->
+                <div class="form-group">
+                    @Html.DropDownList("DifficultyLevel", new List<SelectListItem>
+             { new SelectListItem{Text="Select DifficultyLevel", Value="-1"},
+                new SelectListItem{Text="Easy", Value="1"},
+                new SelectListItem{Text="Medium", Value="2"},
+                new SelectListItem{Text="Hard", Value="3"},
+            }, new { @class = "custom-select" })
+                </div>
 
-            <!-- Submit Button -->
-            @*<input  onclick="location.href='@Url.Action("GetAllQuestions", "Admin")'" type="submit" value="Add Question">*@
-            <a href="@Url.Action("GetAllQuestions", "Admin")" class="btn btn-secondary btn-lg action-button" style="align-items:center;color:red;">
-                Add Question
-            </a>
-        </form>
-    </div>
+                <!-- Submit Button -->
+                <div>
+                    @*<input  onclick="location.href='@Url.Action("GetAllQuestions", "Admin")'" type="submit" value="Add Question">*@
+                    @*<a href="@Url.Action("GetAllQuestions", "Admin")" class="btn btn-secondary btn-lg action-button" style="align-items:center;color:red;">
+            Add Question
+        </a>*@
+                    <button type="submit" class="btn btn-primary">Add Question</button>
+                </div>
+                </div>}
+            </div>
 
 </body>
 </html>

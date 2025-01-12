@@ -62,7 +62,7 @@ html{
 }
 
 body{
-    width:100vw;
+    width:auto;
     height:100vh;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--color-background);
@@ -589,7 +589,7 @@ main .date input[type="date"]{
     width: 100%;
 }
 
-/* ===========================MEDIA QUERIES====================== */
+/* ===========================MEDIA QUERIES====================== 
 
 @media screen and (max-width:1200px){
 
@@ -638,6 +638,8 @@ main .date input[type="date"]{
 
    
 }
+
+*/
 
 
 
