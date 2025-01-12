@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "ViewReports";
+}
+
+<h2>ViewReports</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Students</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #1e1e1e, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        .form-group {
+            margin: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, input {
+            padding: 8px;
+            width: 200px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ff1a1a, #b30000);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+            button:hover {
+                background: linear-gradient(90deg, #b30000, #ff1a1a);
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Students</h1>
+        <form class="search-form" action="/students/search" method="POST">
+            <div class="form-group">
+                <label for="technology">Technology</label>
+                <select id="technology" name="technology">
+                    <option value="">Select Technology</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="C++">C++</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="state">
+                    <option value="">Select State</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Gujarat">Gujarat</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <select id="city" name="city">
+                    <option value="">Select City</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Bangalore">Bangalore</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="levels">Levels</label>
+                <select id="levels" name="levels">
+                    <option value="">Select Level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            
+            <div>
+                <button type="submit">Search Students</button>
+            </div>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email-ID</th>
+                    <th>Mobile Number</th>
+                    <th>City</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be populated here -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

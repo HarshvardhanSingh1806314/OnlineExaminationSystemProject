@@ -1,0 +1,153 @@
+﻿@{ ViewBag.Title = "AddQuestion"; }
+<h2 style="text-align: center; color: white; font-family: Arial, sans-serif;">Add Question</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Question</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #1e1e1e, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7);
+            width: 100%;
+            max-width:450px;
+            min-height:500px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position:relative;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: white;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+            input[type="submit"] {
+                margin-top: 15px;
+                background: linear-gradient(90deg, #ff1a1a, #b30000);
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+            }
+
+                input[type="submit"]:hover {
+                    background: linear-gradient(90deg, #b30000, #ff1a1a);
+                }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Add Question</h1>
+        <form action="/questions/add" method="POST">
+            <!-- Subject Selection -->
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                    <option value="math">Math</option>
+                    <option value="science">Science</option>
+                    <option value="history">History</option>
+                </select>
+            </div>
+
+            <!-- Question Input -->
+            <div class="form-group">
+                <label for="question">Question</label>
+                <textarea id="question" name="question" rows="3" placeholder="Enter the question" required></textarea>
+            </div>
+
+            <!-- Option A -->
+            <div class="form-group">
+                <label for="OptionA">Option A</label>
+                <input type="text" id="OptionA" name="OptionA" placeholder="Enter Option A" required>
+            </div>
+
+            <!-- Option B -->
+            <div class="form-group">
+                <label for="OptionB">Option B</label>
+                <input type="text" id="OptionB" name="OptionB" placeholder="Enter Option B" required>
+            </div>
+
+            <!-- Option C -->
+            <div class="form-group">
+                <label for="OptionC">Option C</label>
+                <input type="text" id="OptionC" name="OptionC" placeholder="Enter Option C" required>
+            </div>
+
+            <!-- Option D -->
+            <div class="form-group">
+                <label for="OptionD">Option D</label>
+                <input type="text" id="OptionD" name="OptionD" placeholder="Enter Option D" required>
+            </div>
+
+            <!-- Correct Answer -->
+            <div class="form-group">
+                <label for="CorrectAnswer">Correct Answer</label>
+                <input type="text" id="CorrectAnswer" name="CorrectAnswer" placeholder="Enter Correct Answer" required>
+            </div>
+
+            <!-- Difficulty Level -->
+            <div class="form-group">
+                <label for="difficulty">Difficulty Level</label>
+                <select id="difficulty" name="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <input type="submit" value="Add Question">
+        </form>
+    </div>
+
+</body>
+</html>

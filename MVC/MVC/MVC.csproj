@@ -120,11 +120,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Admin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -135,6 +138,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -162,6 +166,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
+    <Content Include="Views\Home\UserPage.cshtml" />
+    <Content Include="Views\AdminPage\AddQuestion.cshtml" />
+    <Content Include="Views\AdminPage\DeleteQuestion.cshtml" />
+    <Content Include="Views\AdminPage\ViewReports.cshtml" />
+    <Content Include="Views\UserPage\Report.cshtml" />
+    <Content Include="Views\UserPage\Exam.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\AdminPage\AddTopic.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

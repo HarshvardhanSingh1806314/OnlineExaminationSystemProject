@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "AdminPage";
+}
+
+<h2>AdminPage</h2>
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Infinite Exam Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+@*@using (Html.BeginForm("Instruction", "AdminPage", FormMethod.Post))
+    {
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-5">
+                <button type="submit" class="btn btn-primary" formaction="@Url.Action("AddQuestion", "AdminPage")">AddQuestion</button>
+                <button type="submit" class="btn btn-secondary" formaction="@Url.Action("DeleteQuestion", "AdminPage")">DeleteQuestion</button>
+                <button type="submit" class="btn btn-secondary" formaction="@Url.Action("ViewReports", "AdminPage")">ViewReports</button>
+            </div>
+        </div>
+    }*@
+
+
+
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Infinite Exam Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+@*@using (Html.BeginForm("Instruction", "AdminPage", FormMethod.Post))
+    {
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-5">
+                <button type="submit" class="btn btn-primary" formaction="@Url.Action("AddQuestion", "AdminPage")">AddQuestion</button>
+                <button type="submit" class="btn btn-secondary" formaction="@Url.Action("DeleteQuestion", "AdminPage")">DeleteQuestion</button>
+                <button type="submit" class="btn btn-secondary" formaction="@Url.Action("ViewReports", "AdminPage")">ViewReports</button>
+            </div>
+        </div>
+    }*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome !</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(56, 0, 0, 1) 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .login-container h1 {
+                margin-bottom: 20px;
+            }
+
+            .login-container img {
+                width: 50px;
+                margin-bottom: 20px;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background: #222;
+                color: white;
+            }
+
+                .form-group input:focus {
+                    outline: none;
+                    border-color: red;
+                }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: red;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background-color: darkred;
+            }
+
+        .btn-secondary {
+            background-color: black;
+            color: white;
+        }
+
+            .btn-secondary img {
+                margin-right: 8px;
+                vertical-align: middle;
+            }
+
+        .sign-up {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+            .sign-up a {
+                color: lightblue;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="~/Images/logo.jpg" alt="Logo" />
+        <h1>Welcome Back!</h1>
+        <form>
+            <div class="form-group">
+                <input type="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password" required>
+            </div>
+            <div class="form-check">
+                <label>
+                    <input type="checkbox"> Remember for 30 days
+                </label>
+                <a href="#">Forgot password</a>
+            </div>
+            @*<button type="submit" class="btn btn-primary">Sign in</button>*@
+            <button type="submit" class="btn btn-primary" formaction="@Url.Action("Admin", "Home")">Sign in</button>
+
+        </form>
+
+    </div>
+</body>
+</html>
+
+
+
