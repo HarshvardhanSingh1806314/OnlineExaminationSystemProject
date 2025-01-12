@@ -7,18 +7,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Web;
 
 namespace RESTApi.Middlewares
 {
     public class JwtAuthenticationHandler : DelegatingHandler
     {
-        // Issuer of the token
-        private const string Issuer = "OnlineExaminationSystemBackend";
-
-        // Audience of the token
-        private const string Audience = "OnlineExaminationSystemFrontend";
-
         // overriding the SendAsync method to intercept the HTTP request
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -37,6 +32,12 @@ namespace RESTApi.Middlewares
                     // validating the token
                     ClaimsPrincipal principal = ValidateToken(authToken);
 
+                    // checking if the user is authorized to access the endpoint based on there role
+                    if(!IsUserAuthorizedForRequestedRoute(request, principal.FindFirst(ClaimTypes.Role).Value))
+                    {
+                        return request.CreateResponse(System.Net.HttpStatusCode.Unauthorized, "You are not authorized to access this path");
+                    }
+
                     // If token is valid then claims are added to HttpContext for further use in the api
                     HttpContext.Current.User = principal;
                 }
@@ -54,12 +55,37 @@ namespace RESTApi.Middlewares
             return await base.SendAsync(request, cancellationToken);
         }
 
+        // method to check if the user id authorized to access the route based on their role
+        private bool IsUserAuthorizedForRequestedRoute(HttpRequestMessage requestMessage, string role)
+        {
+            string path = requestMessage.RequestUri.AbsolutePath.ToLower();
+            //path = path.Substring(0, path.IndexOf('?'));
+            string route = "";
+            switch(role)
+            {
+                case StaticDetails.ROLE_ADMIN:
+                    route = StaticDetails.ADMIN_ROUTES.FirstOrDefault(ar => ar.Equals(path));
+                    break;
+                case StaticDetails.ROLE_STUDENT:
+                    route = StaticDetails.STUDENT_ROUTES.FirstOrDefault(ar => ar.Equals(path));
+                    break;
+            }
+
+            if (route != null && route.Length != 0)
+            {
+                return true;
+            }
+            route = StaticDetails.COMMON_ROUTES.FirstOrDefault(cr => cr.Equals(path));
+
+            return route != null && route.Length != 0;
+        }
+
         // Method to check if the request contains the route which need to exclude token validation
         private bool IsAuthRoute(HttpRequestMessage request)
         {
             string path = request.RequestUri.AbsolutePath.ToLower();
-            return path.Contains("/api/auth/student/login") || path.Contains("/api/auth/student/register")
-                || path.Contains("/api/auth/admin/login") || path.Contains("api/auth/admin/register");
+            return path.Contains(StaticDetails.STUDENT_LOGIN_PATH) || path.Contains(StaticDetails.STUDENT_REGISTER_PATH)
+                || path.Contains(StaticDetails.ADMIN_LOGIN_PATH) || path.Contains(StaticDetails.ADMIN_REGISTER_PATH);
         }
 
         // validating JWT token
@@ -74,8 +100,8 @@ namespace RESTApi.Middlewares
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                ValidIssuer = Issuer,
-                ValidAudience = Audience,
+                ValidIssuer = StaticDetails.ISSUER,
+                ValidAudience = StaticDetails.AUDIENCE,
                 IssuerSigningKey = new SymmetricSecurityKey(secretKey),
                 ClockSkew = TimeSpan.Zero
             };

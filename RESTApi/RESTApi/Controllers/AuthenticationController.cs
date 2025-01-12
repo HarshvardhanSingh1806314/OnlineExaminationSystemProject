@@ -209,7 +209,7 @@ namespace RESTApi.Controllers
                 issuer: "OnlineExaminationSystemBackend",
                 audience: "OnlineExaminationSystemFrontend",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: credentials
             );
 

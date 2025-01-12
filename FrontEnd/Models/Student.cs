@@ -20,7 +20,7 @@ namespace FrontEnd.Models
         public string PhoneNumber { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DOB { get; set; } 
+        public string DOB { get; set; } 
         [Required]
         public string GraduationYear { get; set; }
         public string City { get; set; }

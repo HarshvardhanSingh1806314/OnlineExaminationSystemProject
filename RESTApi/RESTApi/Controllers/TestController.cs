@@ -42,8 +42,12 @@ namespace RESTApi.Controllers
                     throw new NullEntityException("Invalid Test Information");
                 }
 
+                // extracting id of admin who created the test
+                ClaimsPrincipal admin = HttpContext.Current.User as ClaimsPrincipal;
+                int adminId = int.Parse(admin.Claims.ElementAt(1).Value);
+
                 // checking if test already exist
-                Test testExist = _testRepository.Get(t => t.Name == testAddModel.Name);
+                Test testExist = _testRepository.Get(t => t.Name == testAddModel.Name && t.AdminId == adminId);
                 if(testExist != null)
                 {
                     throw new EntityAlreadyExistException($"Test with name: {testAddModel.Name} already exist");
@@ -52,9 +56,6 @@ namespace RESTApi.Controllers
                 // creating new test id
                 string testId = IdGenerator.GenerateIdForTests(testAddModel.Name, testAddModel.Description);
 
-                // extracting id of admin who created the test
-                ClaimsPrincipal admin = HttpContext.Current.User as ClaimsPrincipal;
-                int adminId = int.Parse(admin.Claims.ElementAt(1).Value);
 
                 // creating new test entity
                 Test test = new Test
@@ -208,7 +209,7 @@ namespace RESTApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllTest")]
+        [Route("GetAllTests")]
         public IHttpActionResult GetAllTest()
         {
             try
@@ -228,6 +229,235 @@ namespace RESTApi.Controllers
             catch(NullEntityException)
             {
                 return NotFound();
+            }
+            catch(NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // user routes
+        [HttpGet]
+        [Route("GetTestsByOrgName")]
+        public IHttpActionResult GetTestByOrgName(string organizationName)
+        {
+            try
+            {
+                if(organizationName == null || organizationName.Length == 0)
+                {
+                    throw new NullReferenceException("Organization Name cannot be null");
+                }
+
+                // fetching all the tests created by given organization name
+                List<Test> tests = _testRepository.GetAll(t => t.Admin.OrganizationName == organizationName).ToList();
+                if(tests == null)
+                {
+                    throw new NullEntityException("Tests not found");
+                }
+
+
+                // creating response
+                Object[] testList = new Object[tests.Count];
+                for(int i=0;i<tests.Count;i++)
+                {
+                    testList[i] = new
+                    {
+                        tests[i].TestId,
+                        tests[i].Name,
+                        tests[i].Duration
+                    };
+                }
+
+                return Ok(testList);
+            }
+            catch(NullEntityException)
+            {
+                return NotFound();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetTestById")]
+        public IHttpActionResult GetTestById(string testId)
+        {
+            try
+            {
+                if(testId == null || testId.Length == 0)
+                {
+                    throw new NullReferenceException("TestId cannot be null");
+                }
+
+                // fetching test
+                Test test = _testRepository.Get(t => t.TestId == testId, "Questions");
+                if(test == null)
+                {
+                    throw new NullEntityException("Test not found");
+                }
+
+                // creating questions object array
+                Object[] questions = new Object[test.Questions.Count];
+                for(int i=0;i<test.Questions.Count;i++)
+                {
+                    questions[i] = new
+                    {
+                        test.Questions.ElementAt(i).Description,
+                        test.Questions.ElementAt(i).Option1,
+                        test.Questions.ElementAt(i).Option2,
+                        test.Questions.ElementAt(i).Option3,
+                        test.Questions.ElementAt(i).Option4,
+                        test.Questions.ElementAt(i).DifficultyLevel.LevelName
+                    };
+                }
+
+                return Ok(new { 
+                    test.TestId,
+                    test.Name,
+                    test.Description,
+                    test.Duration,
+                    Questions = questions
+                });
+            }
+            catch(NullEntityException)
+            {
+                return NotFound();
+            }
+            catch(NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("SubmitTest")]
+        public IHttpActionResult SubmitTest(string testId, [FromBody] SubmitTestModel submitTestModel)
+        {
+            try
+            {
+                if(testId == null || testId.Length == 0)
+                {
+                    throw new NullReferenceException("Test Id cannot be null");
+                }
+
+                // extracting studentId
+                ClaimsPrincipal student = HttpContext.Current.User as ClaimsPrincipal;
+                string studentId = student.Claims.ElementAt(1).Value;
+
+                // checking if test wih testId exist or not
+                Test testExist = _testRepository.Get(t => t.TestId == testId, "Questions");
+                if(testExist == null)
+                {
+                    throw new NullEntityException("Test does not exist");
+                }
+
+                // checking if student with studentId exist or not
+                Student studentExist = _db.Students.Find(studentId);
+                if(studentExist == null)
+                {
+                    throw new NullEntityException("Student doed not exist");
+                }
+
+                // creating a report object
+                String reportId = IdGenerator.GenerateIdForReports(studentId, testId);
+                Report testReport = new Report
+                {
+                    Id = reportId,
+                    StudentId = studentId,
+                    TestId = testId
+                };
+
+                // evaluating easy level questions
+                foreach(QuestionResponse response in submitTestModel.EasyLevel)
+                {
+                    if(response.Answer != null && response.Answer.Length > 0)
+                    {
+                        testReport.TotalAttemptsInEasyQuestions += 1;
+                        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
+                        {
+                            testReport.CorrectAttempsInEasyQuestions += 1;
+                        }
+                    }
+                }
+
+                // evaluating medium level questions
+                foreach(QuestionResponse response in submitTestModel.MediumLevel) {
+                    if(response.Answer != null && response.Answer.Length > 0)
+                    {
+                        testReport.TotalAttemptsInMediumQuestions += 1;
+                        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
+                        {
+                            testReport.CorrectAttemptsInMediumQuestions += 1;
+                        }
+                    }
+                }
+
+                // evaluating hard level questions
+                foreach(QuestionResponse response in submitTestModel.HardLevel)
+                {
+                    if(response.Answer != null && response.Answer.Length > 0)
+                    {
+                        testReport.TotalAttemptsInHardQuestions += 1;
+                        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
+                        {
+                            testReport.CorrectAttemptsInHardQuestions += 1;
+                        }
+                    }
+                }
+
+                if(testReport.CorrectAttempsInEasyQuestions >= Math.Ceiling(testExist.TotalNoOfEasyQuestions / 2.0) &&
+                   testReport.CorrectAttemptsInMediumQuestions >= Math.Ceiling(testExist.TotalNoOfMediumQuestions / 2.0) &&
+                   testReport.CorrectAttemptsInHardQuestions >= Math.Ceiling(testExist.TotalNoOfHardQuestions / 2.0))
+                {
+                    testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_PASSED).ResultId;
+                }
+                else
+                {
+                    testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_FAILED).ResultId;
+                }
+
+                // adding report to database
+                if(_db.Reports.Add(testReport) != null && _db.SaveChanges() > 0)
+                {
+                    return Ok(new { 
+                        StudentName = testReport.Student.Username,
+                        TestName = testReport.Test.Name,
+                        testReport.Test.Admin.OrganizationName,
+                        TestDuration = testReport.Test.Duration,
+                        CorrectAttemptsInEasyQuestions = testReport.CorrectAttempsInEasyQuestions,
+                        testReport.TotalAttemptsInEasyQuestions,
+                        testReport.Test.TotalNoOfEasyQuestions,
+                        testReport.CorrectAttemptsInMediumQuestions,
+                        testReport.TotalAttemptsInMediumQuestions,
+                        testReport.Test.TotalNoOfMediumQuestions,
+                        testReport.CorrectAttemptsInHardQuestions,
+                        testReport.TotalAttemptsInHardQuestions,
+                        testReport.Test.TotalNoOfHardQuestions,
+                        Result = testReport.Result.Name
+                    });
+                }
+                else
+                {
+                    throw new OperationFailedException("Test Evaluation Failed");
+                }
+            }
+            catch(OperationFailedException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(NullEntityException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch(NullReferenceException ex)
             {

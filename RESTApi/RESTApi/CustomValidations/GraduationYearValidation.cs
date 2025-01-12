@@ -6,7 +6,7 @@ namespace RESTApi.CustomValidations
     public class GraduationYearValidation : ValidationAttribute
     {
         // Minimum acceptable value for graduation year
-        private const int MinimumGraduationYearAllowed = 1970;
+        private const int MinimumGraduationYearAllowed = 1999;
 
         public GraduationYearValidation(string ErrorMessage) : base(ErrorMessage)
         {

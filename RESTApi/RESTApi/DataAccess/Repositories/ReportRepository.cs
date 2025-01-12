@@ -17,12 +17,6 @@ namespace RESTApi.DataAccess.Repositories
         {
             Report reportExist = _db.Reports.Find(ReportId);
 
-            reportExist.StudentId = reportUpdateModel.StudentId != null && reportUpdateModel.StudentId.Length > 0 ? 
-                                    reportUpdateModel.StudentId : reportExist.StudentId;
-
-            reportExist.TestId = reportUpdateModel.TestId != null && reportUpdateModel.TestId.Length > 0 ?
-                                 reportUpdateModel.TestId : reportExist.TestId;
-
             reportExist.TotalAttemptsInEasyQuestions = reportUpdateModel.TotalAttemptsInEasyQuestions >= 0 ? 
                                                        reportUpdateModel.TotalAttemptsInEasyQuestions : reportExist.TotalAttemptsInEasyQuestions;
 
