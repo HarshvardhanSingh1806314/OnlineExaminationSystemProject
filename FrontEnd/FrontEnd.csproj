@@ -128,6 +128,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddTest.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\DifficultyLevel.cs" />
     <Compile Include="Models\Questions.cs" />

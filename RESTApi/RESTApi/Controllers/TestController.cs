@@ -70,7 +70,15 @@ namespace RESTApi.Controllers
                 Test newAddedTest = _testRepository.Add(test);
                 if (newAddedTest != null && _testRepository.Save())
                 {
-                    return Created("Test", test);
+                    return Created("Test", new { 
+                        test.Name,
+                        test.Description,
+                        test.Duration,
+                        test.TotalNoOfEasyQuestions,
+                        test.TotalNoOfMediumQuestions,
+                        test.TotalNoOfHardQuestions,
+                        test.TotalNoOfQuestions
+                    });
                 }
                 else
                 {

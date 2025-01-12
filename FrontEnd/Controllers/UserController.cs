@@ -25,7 +25,20 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
-            Response.Cookies.Remove("ACCESS_TOKEN");
+            if(Request.Cookies.Get("ACCESS_TOKEN").Value != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
+
+            if(Request.Cookies.Get("ROLE").Value != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ROLE") { 
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
             ViewBag.Message = "Your User page.";
             return View();
         }
@@ -35,20 +48,19 @@ namespace FrontEnd.Controllers
             if(ModelState.IsValid)
             {
                 string accessToken = await RequestService.StudentLoginServive(studentlogin);
-                string studentRoleHash = IdGenerator.GenerateRoleId("STUDENT");
-                StaticDetails.ROLE_STUDENT = studentRoleHash;
+                string roleHash = IdGenerator.GenerateRoleId("STUDENT");
                 HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
                 {
                     HttpOnly = true,
                     Secure = true,
                     Expires = DateTime.Now.AddDays(1)
                 };
-                HttpCookie roleCookie = new HttpCookie("ROLE", studentRoleHash)
+                Response.Cookies.Add(accessTokenCookie);
+                HttpCookie roleCookie = new HttpCookie("ROLE", roleHash)
                 {
                     HttpOnly = true,
                     Expires = DateTime.Now.AddDays(1)
                 };
-                Response.Cookies.Add(accessTokenCookie);
                 Response.Cookies.Add(roleCookie);
                 return RedirectToAction(nameof(Index));
             }

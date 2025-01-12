@@ -59,7 +59,6 @@ namespace RESTApi.Middlewares
         private bool IsUserAuthorizedForRequestedRoute(HttpRequestMessage requestMessage, string role)
         {
             string path = requestMessage.RequestUri.AbsolutePath.ToLower();
-            //path = path.Substring(0, path.IndexOf('?'));
             string route = "";
             switch(role)
             {

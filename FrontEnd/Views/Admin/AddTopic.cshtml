@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.Tests
+﻿@model FrontEnd.Models.AddTest
 @*@{ ViewBag.Title = "AddTest Page"; }*@
 
 
@@ -119,7 +119,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name, "Name")
+                    @Html.LabelFor(model => model.Name, "Test Name")
                     @Html.TextBoxFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
@@ -127,6 +127,11 @@
                     @Html.LabelFor(model => model.Description, "Description")
                     @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Duration, "Test Duration")
+                    @Html.TextBoxFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" }, type = "number", min = 10 })
+                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
                 </div>
             </div>
 

@@ -20,7 +20,20 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
-            Response.Cookies.Remove("ACCESS_TOKEN");
+            if (Request.Cookies.Get("ACCESS_TOKEN").Value != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
+
+            if(Request.Cookies.Get("ROLE").Value != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ROLE") { 
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
             ViewBag.Message = "Your Admin page.";
             return View();
         }
@@ -31,20 +44,19 @@ namespace FrontEnd.Controllers
             if(ModelState.IsValid)
             {
                 string accessToken = await RequestService.AdminLoginService(admin);
-                string adminRoleHash = IdGenerator.GenerateRoleId("ADMIN");
-                StaticDetails.ROLE_ADMIN = adminRoleHash;
+                string roleHash = IdGenerator.GenerateRoleId("ADMIN");
+                StaticDetails.ROLE_ADMIN = roleHash;
                 HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
                 {
                     HttpOnly = true,
                     Secure = true,
                     Expires = DateTime.Now.AddDays(1)
                 };
-                HttpCookie roleCookie = new HttpCookie("ROLE", adminRoleHash)
-                {
+                Response.Cookies.Add(accessTokenCookie);
+                HttpCookie roleCookie = new HttpCookie("ROLE", roleHash) { 
                     HttpOnly = true,
                     Expires = DateTime.Now.AddDays(1)
                 };
-                Response.Cookies.Add(accessTokenCookie);
                 Response.Cookies.Add(roleCookie);
                 return RedirectToAction(nameof(AdminPortal));
             }
@@ -52,20 +64,37 @@ namespace FrontEnd.Controllers
         }
         public ActionResult AdminPortal()
         {
-            return View();
+            //if (StaticDetails.ACTIVE_ROLE != null && StaticDetails.ACTIVE_ROLE.Equals("ADMIN"))
+            //{
+            //    return View();
+            //}
+
+            if(Request.Cookies.Get("ACCESS_TOKEN").Value != null && Request.Cookies.Get("ROLE").Value.Equals(StaticDetails.ROLE_ADMIN))
+            {
+                return View();
+            }
+
+            return RedirectToAction(nameof(Login));
         }
         public ActionResult AddTopic()
         {
-            ViewBag.Message = "Your Add Topic page.";
+            if(Request.Cookies.Get("ACCESS_TOKEN").Value != null && Request.Cookies.Get("ROLE").Value.Equals(StaticDetails.ROLE_ADMIN))
+            {
+                ViewBag.Message = "Your Add Topic page.";
+                return View();
+            }
 
-            return View();
+            return RedirectToAction(nameof(Login));
         }
         [HttpPost]
-        public ActionResult AddTopic(Tests test)
+        public async Task<ActionResult> AddTopic(AddTest test)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(GetAllTopics));
+                string accessToken = Request.Cookies.Get("ACCESS_TOKEN").Value;
+                Test newTest = await RequestService.CreateNewTest(test, accessToken);
+                if(newTest != null)
+                    return RedirectToAction(nameof(GetAllTopics));
             }
             return View(test);
         }
@@ -89,7 +118,7 @@ namespace FrontEnd.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult DeleteQuestion(Tests t)
+        public ActionResult DeleteQuestion(Test t)
         {
             if (ModelState.IsValid)
             {
@@ -120,11 +149,16 @@ namespace FrontEnd.Controllers
         }
 
         //get list of topics
-        public ActionResult GetAllTopics()
+        public async Task<ActionResult> GetAllTopics()
         {
-            //List<Tests> testlist = db.tests.ToList();
-            //return View(testlist);
-            return View();
+            string accessToken = Request.Cookies.Get("ACCESS_TOKEN").Value;
+            if(accessToken != null && Request.Cookies.Get("ROLE").Value.Equals(StaticDetails.ROLE_ADMIN))
+            {
+                List<Test> testList = await RequestService.GetAllTests(accessToken);
+                return View(testList);
+            }
+
+            return RedirectToAction(nameof(Login));
         }
         public ActionResult GetAllQuestions()
         {
