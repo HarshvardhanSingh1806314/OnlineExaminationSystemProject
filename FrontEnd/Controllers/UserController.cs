@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FrontEnd.AsyncServices;
 using FrontEnd.Models;
+using FrontEnd.Utility;
 using Newtonsoft.Json;
 using static FrontEnd.Models.ResponseModels;
 
@@ -34,8 +35,21 @@ namespace FrontEnd.Controllers
             if(ModelState.IsValid)
             {
                 string accessToken = await RequestService.StudentLoginServive(studentlogin);
-                HttpCookie httpCookie = new HttpCookie("ACCESS_TOKEN", accessToken);
-                Response.Cookies.Add(httpCookie);
+                string studentRoleHash = IdGenerator.GenerateRoleId("STUDENT");
+                StaticDetails.ROLE_STUDENT = studentRoleHash;
+                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                HttpCookie roleCookie = new HttpCookie("ROLE", studentRoleHash)
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                Response.Cookies.Add(accessTokenCookie);
+                Response.Cookies.Add(roleCookie);
                 return RedirectToAction(nameof(Index));
             }
             return View(studentlogin);

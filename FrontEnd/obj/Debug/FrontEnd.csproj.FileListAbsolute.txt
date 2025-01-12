@@ -155,3 +155,4 @@ C:\Users\harshvardhansi\OnlineExaminationSystemProject\FrontEnd\bin\Microsoft.Co
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\FrontEnd\obj\Debug\FrontEnd.csproj.CopyComplete
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\FrontEnd\obj\Debug\FrontEnd.dll
 C:\Users\harshvardhansi\OnlineExaminationSystemProject\FrontEnd\obj\Debug\FrontEnd.pdb
+C:\Users\harshvardhansi\OnlineExaminationSystemProject\FrontEnd\obj\Debug\FrontEnd.csproj.AssemblyReference.cache

@@ -1,5 +1,6 @@
 ﻿using FrontEnd.AsyncServices;
 using FrontEnd.Models;
+using FrontEnd.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,21 @@ namespace FrontEnd.Controllers
             if(ModelState.IsValid)
             {
                 string accessToken = await RequestService.AdminLoginService(admin);
-                HttpCookie httpCookie = new HttpCookie("ACCESS_TOKEN", accessToken);
-                Response.Cookies.Add(httpCookie);
+                string adminRoleHash = IdGenerator.GenerateRoleId("ADMIN");
+                StaticDetails.ROLE_ADMIN = adminRoleHash;
+                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                HttpCookie roleCookie = new HttpCookie("ROLE", adminRoleHash)
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                Response.Cookies.Add(accessTokenCookie);
+                Response.Cookies.Add(roleCookie);
                 return RedirectToAction(nameof(AdminPortal));
             }
             return View(admin);
