@@ -15,8 +15,6 @@
             background-color: #121212;
             color: white;
             text-align: center;
-            height: 150vh;
-            overflow: scroll;
         }
 
         .card-container {
@@ -78,35 +76,31 @@
     </style>
 </head>
 <body>
-    <br />
-    <br />
-    <br />
-    <br />
-    <h1 style="color:lightpink">Admin Dashboard</h1>
+    <h1>Admin Dashboard</h1>
     <div class="card-container">
         <div class="card">
-            
+            @*<div class="card-icon">Add Topic</div>*@
             <div class="card-title">Add Topic</div>
             <div class="card-description">Click to add the topic</div>
-            <button onclick="location.href='@Url.Action("AddTopic", "Admin")'">Add</button>
+            <button onclick="location.href='@Url.Action("AddTopic", "AdminPage")'">Add</button>
         </div>
-        @*<div class="card">
-            
+        <div class="card">
+            @*<div class="card-icon">❤️</div>*@
             <div class="card-title">Add Question</div>
             <div class="card-description">Click to add the question</div>
-            <button onclick="location.href='@Url.Action("AddQuestion", "Admin")'">Add</button>
-        </div>*@
-        <div class="card">
-            
-            <div class="card-title">Add or Delete Question</div>
-            <div class="card-description">Click to add or delete the question</div>
-            <button onclick="location.href='@Url.Action("DeleteQuestion", "Admin")'">Modify Question</button>
+            <button onclick="location.href='@Url.Action("AddQuestion", "AdminPage")'">Add</button>
         </div>
         <div class="card">
-            
+            @*<div class="card-icon">📧</div>*@
+            <div class="card-title">Delete Question</div>
+            <div class="card-description">Click to delete the question</div>
+            <button onclick="location.href='@Url.Action("DeleteQuestion", "AdminPage")'">Delete</button>
+        </div>
+        <div class="card">
+            @*<div class="card-icon">📧</div>*@
             <div class="card-title">View Reports</div>
             <div class="card-description">Click to view reports</div>
-            <button onclick="location.href='@Url.Action("ViewReport", "Admin")'">View</button>
+            <button onclick="location.href='@Url.Action("ViewReports", "AdminPage")'">View</button>
         </div>
     </div>
 </body>

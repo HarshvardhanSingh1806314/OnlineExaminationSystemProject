@@ -13,6 +13,7 @@
     <title>Login Form</title>
     <style>
         @@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -85,7 +86,6 @@
             padding: 40px;
             border-radius: 4px;
             box-shadow: 0 15px 35px rgba(0,0,0,9);
-            
         }
 
             section .signin .content {
@@ -467,6 +467,29 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
+<<<<<<< HEAD
+                    <div class="form">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="inputbox">
+                            @Html.LabelFor(model => model.Email, "Email")
+                            @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" }, type = "email" })
+                            @*@Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })*@
+                        </div>
+                        <div class="inputbox">
+                            @Html.LabelFor(model => model.Password, "Password")
+                            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                        </div>
+                        <div class="links">
+                            <a href="#">Forgot Password</a>
+                            <a href="#">SignUp</a>
+                        </div>
+                        <div class="inputbox">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </div>}
+            </div>
+=======
             <div class="form">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="inputbox">
@@ -488,7 +511,9 @@
                 </div>
             </div>}
                 </div>
+>>>>>>> 86960d05c08ee135129eac49f13f1fad09db8ca1
         </div>
     </section>
 </body>
 </html>
+

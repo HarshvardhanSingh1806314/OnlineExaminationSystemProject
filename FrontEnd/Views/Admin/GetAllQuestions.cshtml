@@ -1,19 +1,66 @@
-﻿@*model IEnumerable<FrontEnd.Models.Questions>*@
-@{ ViewBag.Title = "GetAllQuestions"; }
+﻿@model IEnumerable<FrontEnd.Models.Questions>
 
-<h2> All Questions </h2>
+<p>
+    @Html.ActionLink("Create New", "CreateQuestions")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Option1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Option2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Option3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Option4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DifficultyLevel)
+        </th>
+        <th></th>
+    </tr>
 
-@*@foreach (var item in Model)
-{
-<ul style="color:firebrick;">
-    <li>@item.Id</li>
-    <li>@item.Description</li>
-    <li>@item.Option 1</li>
-    <li>@item.Option 2</li>
-    <li>@item.Option 3</li>
-    <li>@item.Option 4</li>
-    <li>@item.Answer</li>
-    <li>@item.DifficultyLevel</li>
-    <li>@item.TestId</li>
+@foreach (var item in Model) {
 
-</ul>}*@
+<tr>
+    
+
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Option1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Option2)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Option3)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Option4)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Answer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DifficultyLevel)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditQuestions",Model) |
+        @Html.ActionLink( "Delete", "DeleteQuestions", Model)
+    </td>
+</tr>
+}
+
+</table>

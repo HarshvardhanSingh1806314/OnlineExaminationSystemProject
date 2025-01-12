@@ -1,31 +1,92 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<!-- Navbar -->
+<div style="background-color: #343a40; padding: 10px; text-align: center;">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <a href="#about" style="color: #fff; text-decoration: none; margin: 0 15px;">About</a>
+    <a href="#contact" style="color: #fff; text-decoration: none; margin: 0 15px;">Contact</a>
+    <a href="#admin" style="color: #fff; text-decoration: none; margin: 0 15px;">Admin</a>
+    <a href="#user" style="color: #fff; text-decoration: none; margin: 0 15px;">User</a>
 </div>
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Infinite Exam Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+<div style="text-align: center; margin: 50px 0;">
+    <div id="about" style="background-color: #f8f9fa; padding: 50px;">
+        <!-- Company Name -->
+        <h3 style="color: #333;">Online Exam System</h3>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+        <!-- Main Heading -->
+        <h1 style="font-size: 2.5rem; margin: 20px 0;">Infinite Exam Portal</h1>
+
+        <!-- Description -->
+        <p style="color: #666; font-size: 1rem; max-width: 600px; margin: 0 auto;">
+            This website is helpful for students, companies or any organization to conduct any examinations from this site.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+        <!-- Learn More Button -->
+        <a href="@Url.Action("About", "Home")" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+            Learn More
+        </a>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <div id="admin" style="background-color: #343a40; color: #fff; padding: 50px;">
+        <!-- Sub-heading -->
+        <h2>Admin</h2>
+
+        <!-- Description -->
+        <p style="max-width: 600px; margin: 0 auto;">
+            Admin can add the topics and questions and modify question.
+        </p>
+
+        <!-- Show Case Button -->
+        <a href="@Url.Action("AdminPage", "Home")" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+            ADMIN
+        </a>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div id="user" style="background-color: #e9ecef; color: #333; padding: 50px;">
+        <!-- Sub-heading -->
+        <h2>User</h2>
+
+        <!-- Description -->
+        <p style="max-width: 600px; margin: 0 auto;">
+            User can take exam and view reports.
+        </p>
+
+        <!-- Show Case Button -->
+        <a href="@Url.Action("UserPage", "Home")" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+            User
+        </a>
     </div>
 </div>
+
+<!-- Contact Details Section -->
+<div id="contact" style="background-color: #f8f9fa; padding: 50px; text-align: center;">
+    <h2>Contact Us</h2>
+    <p style="max-width: 600px; margin: 0 auto; font-size: 1rem; color: #666;">
+        You can reach us at:
+    </p>
+    <ul style="list-style: none; padding: 0; margin: 20px 0; color: #333;">
+        <li>Email: contact@companyname.com</li>
+        <li>Phone: +1 (234) 567-8901</li>
+        <li>Address: 123 Main Street, City, Country</li>
+    </ul>
+</div>
+

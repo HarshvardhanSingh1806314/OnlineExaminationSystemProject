@@ -132,11 +132,13 @@
     <Compile Include="Models\DifficultyLevel.cs" />
     <Compile Include="Models\Questions.cs" />
     <Compile Include="Models\Reports.cs" />
+    <Compile Include="Models\ReportsData.cs" />
     <Compile Include="Models\Resetpassword.cs" />
     <Compile Include="Models\ResponseModels.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentLogin.cs" />
+    <Compile Include="Models\TestDropDown.cs" />
     <Compile Include="Models\Tests.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,7 +150,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CSS\style 1.css" />
+    <Content Include="CSS\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -199,17 +201,21 @@
     <Content Include="Views\Admin\AddQuestion.cshtml" />
     <Content Include="Views\Admin\DeleteQuestion.cshtml" />
     <Content Include="Views\Admin\ViewReport.cshtml" />
-    <Content Include="Views\Admin\GetAllTopics.cshtml" />
-    <Content Include="Views\Admin\GetAllQuestions.cshtml" />
-    <Content Include="Views\Admin\StudentReports.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Reset.cshtml" />
     <Content Include="Views\User\Question.cshtml" />
     <Content Include="Views\UserDashBoard\Index.cshtml" />
+    <Content Include="Views\Admin\GetAllQuestions.cshtml" />
+    <Content Include="Views\Admin\DeleteQuestions.cshtml" />
+    <Content Include="Views\Admin\EditQuestions.cshtml" />
+    <Content Include="Views\Admin\StudentReports.cshtml" />
+    <Content Include="Views\Admin\GetAllTopics.cshtml" />
+    <Content Include="Views\Admin\CreateQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Delete\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
