@@ -1,6 +1,7 @@
-﻿@model FrontEnd.Models.Questions
+﻿@model FrontEnd.Models.CreateQuestion
 @{
     ViewBag.Title = "AddQuestion";
+    var testDropDown = (FrontEnd.Models.TestDropDown)ViewBag.TestDropDown;
 }
 
 
@@ -107,13 +108,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <!-- Subject Selection -->
                 <div class="form-group">
-                    @Html.DropDownList("Subject", new List<SelectListItem>
-             { new SelectListItem{Text="Select Subject", Value="-1"},
-                new SelectListItem{Text="CSharp", Value="1"},
-                new SelectListItem{Text="SQL", Value="2"},
-                new SelectListItem{Text="Dotnet", Value="3"},
-                new SelectListItem{Text="Java", Value="4"},
-            }, new { @class = "custom-select" })
+                    @Html.DropDownList("testId", new SelectList(testDropDown.Items, "Value", "Text"), new { @class = "custom-select" })
                 </div>
 
                 <!-- Question Input -->
@@ -160,11 +155,11 @@
 
                 <!-- Difficulty Level -->
                 <div class="form-group">
-                    @Html.DropDownList("DifficultyLevel", new List<SelectListItem>
-             { new SelectListItem{Text="Select DifficultyLevel", Value="-1"},
-                new SelectListItem{Text="Easy", Value="1"},
-                new SelectListItem{Text="Medium", Value="2"},
-                new SelectListItem{Text="Hard", Value="3"},
+                    @Html.DropDownList("difficultyLevel", new List<SelectListItem>
+             {
+                new SelectListItem{Text="EASY", Value="easy"},
+                new SelectListItem{Text="MEDIUM", Value="medium"},
+                new SelectListItem{Text="HARD", Value="hard"},
             }, new { @class = "custom-select" })
                 </div>
 

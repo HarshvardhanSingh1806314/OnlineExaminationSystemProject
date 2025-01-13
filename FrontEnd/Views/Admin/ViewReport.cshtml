@@ -111,7 +111,7 @@
     <div class="login-container">
         <img src="~/Images/logo.jpg" alt="Logo" />
         <h1>View Reports</h1>
-        @using (Html.BeginForm(""))
+        @using (@Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             <div class="form-group">
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <h2>Select Topic</h2>
 
-                        @Html.DropDownList("TestName", new SelectList(Model.Items, "Value", "Text"))
+                        @Html.DropDownList("testId", new SelectList(Model.Items, "Value", "Text"))
                     </div>
                 </div>
             </div>

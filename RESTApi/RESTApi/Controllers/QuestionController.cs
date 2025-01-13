@@ -319,7 +319,8 @@ namespace RESTApi.Controllers
                         updatedQuestion.Option3,
                         updatedQuestion.Option4,
                         updatedQuestion.Answer,
-                        updatedQuestion.DifficultyLevel.LevelName
+                        DifficultyLevel = updatedQuestion.DifficultyLevel.LevelName,
+                        updatedQuestion.TestId
                     });
                 }
                 else
@@ -375,11 +376,13 @@ namespace RESTApi.Controllers
                         questionList[i].Option2,
                         questionList[i].Option3,
                         questionList[i].Option4,
-                        questionList[i].DifficultyLevel.LevelName
+                        questionList[i].Answer,
+                        DifficultyLevel = questionList[i].DifficultyLevel.LevelName,
+                        questionList[i].TestId
                     };
                 }
 
-                return Ok(questionList);
+                return Ok(questionResponseList);
             }
             catch(NullEntityException)
             {
@@ -435,6 +438,7 @@ namespace RESTApi.Controllers
                         questionList[i].Option2,
                         questionList[i].Option3,
                         questionList[i].Option4,
+                        questionList[i].Answer,
                         questionList[i].DifficultyLevel.LevelName
                     };
                 }
@@ -444,6 +448,49 @@ namespace RESTApi.Controllers
             catch(NullEntityException)
             {
                 return NotFound();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetQuestionById")]
+        public IHttpActionResult GetQuestionById(string questionId)
+        {
+            try
+            {
+                if(questionId == null || questionId.Length == 0)
+                {
+                    throw new NullReferenceException("QuestionID cannot be null");
+                }
+
+                // fetching the question
+                Question question = _questionRepository.Get(q => q.Id == questionId, "DifficultyLevel");
+                if(question == null)
+                {
+                    throw new NullEntityException("Not Found");
+                }
+
+                return Ok(new
+                {
+                    question.Description,
+                    question.Option1,
+                    question.Option2,
+                    question.Option3,
+                    question.Option4,
+                    question.Answer,
+                    DifficultyLevel = question.DifficultyLevel.LevelName,
+                });
+            }
+            catch(NullEntityException)
+            {
+                return NotFound();
+            }
+            catch(NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch(Exception ex)
             {

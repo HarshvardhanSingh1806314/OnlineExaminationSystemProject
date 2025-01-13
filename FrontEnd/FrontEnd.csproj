@@ -130,7 +130,10 @@
     </Compile>
     <Compile Include="Models\AddTest.cs" />
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\CreateQuestion.cs" />
+    <Compile Include="Models\CreateQuestions.cs" />
     <Compile Include="Models\DifficultyLevel.cs" />
+    <Compile Include="Models\DifficultyLevelDropDown.cs" />
     <Compile Include="Models\Questions.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\ReportsData.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentLogin.cs" />
     <Compile Include="Models\TestDropDown.cs" />
+    <Compile Include="Models\TestNameAndId.cs" />
     <Compile Include="Models\Tests.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

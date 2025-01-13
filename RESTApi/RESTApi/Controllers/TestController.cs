@@ -47,7 +47,7 @@ namespace RESTApi.Controllers
                 int adminId = int.Parse(admin.Claims.ElementAt(1).Value);
 
                 // checking if test already exist
-                Test testExist = _testRepository.Get(t => t.Name == testAddModel.Name && t.AdminId == adminId);
+                Test testExist = _testRepository.Get(t => t.Name == testAddModel.Name.Trim() && t.AdminId == adminId);
                 if(testExist != null)
                 {
                     throw new EntityAlreadyExistException($"Test with name: {testAddModel.Name} already exist");
@@ -61,8 +61,8 @@ namespace RESTApi.Controllers
                 Test test = new Test
                 {
                     TestId = testId,
-                    Name = testAddModel.Name,
-                    Description = testAddModel.Description,
+                    Name = testAddModel.Name.Trim(),
+                    Description = testAddModel.Description.Trim(),
                     Duration = testAddModel.Duration,
                     AdminId = adminId
                 };
@@ -238,9 +238,33 @@ namespace RESTApi.Controllers
             {
                 return NotFound();
             }
-            catch(NullReferenceException ex)
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetAllTestAndTestIdList")]
+        public IHttpActionResult GetAllTestAndTestIdList()
+        {
+            try
+            {
+                ClaimsPrincipal admin = HttpContext.Current.User as ClaimsPrincipal;
+                int adminId = int.Parse(admin.Claims.ElementAt(1).Value);
+
+                // fetching all the tests with only name and id
+                var testList = _testRepository.GetAll(t => t.AdminId == adminId).Select(test => new { test.Name, test.TestId}).ToList();
+                if(testList == null || testList.Count == 0)
+                {
+                    throw new NullEntityException("No Tests Available");
+                }
+
+                return Ok(testList);
+            }
+            catch(NullEntityException ex)
+            {
+                return NotFound();
             }
             catch(Exception ex)
             {

@@ -6,8 +6,8 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models
 {
-    public class TestDropDown
+    public class DifficultyLevelDropDown
     {
-        public List<SelectListItem> Items { set; get; }
+        public List<SelectListItem> Items { get; set; }
     }
 }

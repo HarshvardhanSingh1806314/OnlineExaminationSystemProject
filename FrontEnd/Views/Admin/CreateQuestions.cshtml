@@ -1,6 +1,9 @@
-﻿@model FrontEnd.Models.Questions
+﻿@model FrontEnd.Models.CreateQuestion
+@{ 
+    string testId = ViewBag.TestId;
+}
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(routeValues: new { testId = testId}))
 {
     @Html.AntiForgeryToken()
     
@@ -59,9 +62,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DifficultyLevel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.DropDownList("DifficultyLevel", new SelectList(Model.Items, "Value", "Text"))*@
-                @Html.EditorFor(model => model.DifficultyLevel, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.DifficultyLevel, "", new { @class = "text-danger" })
+                @Html.DropDownList("DifficultyLevel", new SelectList(new List<SelectListItem> { 
+                    new SelectListItem {Text = "EASY", Value = "easy"},
+                    new SelectListItem {Text = "MEDIUM", Value = "medium"},
+                    new SelectListItem {Text = "HARD", Value = "hard"}
+                }, "Value", "Text"));
+                @*@Html.EditorFor(model => model.DifficultyLevel, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DifficultyLevel, "", new { @class = "text-danger" })*@
             </div>
         </div>
 

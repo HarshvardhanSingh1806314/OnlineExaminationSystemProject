@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<FrontEnd.Models.Questions>
-
+@{
+    string testId = ViewBag.TestId;
+}
 <p>
-    @Html.ActionLink("Create New", "CreateQuestions")
+    @Html.ActionLink("Create New", "CreateQuestions", new { testId = testId})
 </p>
 <table class="table">
     <tr>
@@ -29,38 +31,38 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-
-<tr>
-    
-
-
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Option1)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Option2)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Option3)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Option4)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Answer)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DifficultyLevel)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "EditQuestions",Model) |
-        @Html.ActionLink( "Delete", "DeleteQuestions", Model)
-    </td>
-</tr>
-}
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Option1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Option2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Option3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Option4)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DifficultyLevel)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditQuestions", new { questionId = item.Id, testId = item.TestId}) |
+                    @Html.ActionLink("Delete", "DeleteQuestions", new { questionId = item.Id, testId = item.TestId })
+                </td>
+            </tr>
+        }
+    }
 
 </table>

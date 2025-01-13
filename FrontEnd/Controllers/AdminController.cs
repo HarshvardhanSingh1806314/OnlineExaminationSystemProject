@@ -20,7 +20,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
-            if (Request.Cookies.Get("ACCESS_TOKEN").Value != null)
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+            if (accessTokenCookie != null && accessTokenCookie.Value != null)
             {
                 Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
                 {
@@ -28,7 +30,7 @@ namespace FrontEnd.Controllers
                 });
             }
 
-            if(Request.Cookies.Get("ROLE").Value != null)
+            if (roleCookie != null && roleCookie.Value != null)
             {
                 Response.Cookies.Add(new HttpCookie("ROLE") { 
                     Expires = DateTime.Now.AddDays(-1)
@@ -64,12 +66,14 @@ namespace FrontEnd.Controllers
         }
         public ActionResult AdminPortal()
         {
-            //if (StaticDetails.ACTIVE_ROLE != null && StaticDetails.ACTIVE_ROLE.Equals("ADMIN"))
-            //{
-            //    return View();
-            //}
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
 
-            if(Request.Cookies.Get("ACCESS_TOKEN").Value != null && Request.Cookies.Get("ROLE").Value.Equals(StaticDetails.ROLE_ADMIN))
+            if (accessTokenCookie != null && 
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
             {
                 return View();
             }
@@ -78,7 +82,13 @@ namespace FrontEnd.Controllers
         }
         public ActionResult AddTopic()
         {
-            if(Request.Cookies.Get("ACCESS_TOKEN").Value != null && Request.Cookies.Get("ROLE").Value.Equals(StaticDetails.ROLE_ADMIN))
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN))
             {
                 ViewBag.Message = "Your Add Topic page.";
                 return View();
@@ -98,132 +108,254 @@ namespace FrontEnd.Controllers
             }
             return View(test);
         }
-        //public ActionResult AddQuestion()
-        //{
-        //    ViewBag.Message = "Your Add Question page.";
 
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult AddQuestion(Questions question)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        return RedirectToAction(nameof(GetAllQuestions));
-        //    }
-        //    return View(question);
-        //}
-        public ActionResult DeleteQuestion()
+        public async Task<ActionResult> DeleteQuestion()
         {
-            return View();
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN))
+            {
+                TestDropDown testDropDown = await RequestService.GetAllTestAndTestIdList(accessTokenCookie.Value);
+                if(testDropDown != null)
+                    return View(testDropDown);
+            }
+
+            return RedirectToAction(nameof(Login));
         }
         [HttpPost]
-        public ActionResult DeleteQuestion(Test t)
+        public ActionResult DeleteQuestion(string testId)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(GetAllQuestions));
+                return RedirectToAction(nameof(GetAllQuestions), new { testId });
             }
-            return View(t);
+            return View(testId);
         }
-        public ActionResult ViewReport()
+        public async Task<ActionResult> ViewReport()
         {
-            var model = new TestDropDown{ 
-                Items= new List<SelectListItem> {
-                    new SelectListItem { Text = "CSharp", Value = "1" },
-                    new SelectListItem { Text = "SQL", Value = "2" },
-                    new SelectListItem { Text = "Dotnet", Value = "3" },
-                    new SelectListItem { Text = "Java", Value = "4" },
-                }};
-            return View(model);
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
+            {
+                TestDropDown testDropDown = await RequestService.GetAllTestAndTestIdList(accessTokenCookie.Value);
+                if (testDropDown != null)
+                    return View(testDropDown);
+            }
+
+            return RedirectToAction(nameof(Login));
         }
         [HttpPost]
-        public ActionResult ViewReport(string TestName)
+        public ActionResult ViewReport(string testId)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(StudentReports));
+                return RedirectToAction(nameof(StudentReports), new { testId = testId });
             }
             return View();
-
         }
 
         //get list of topics
         public async Task<ActionResult> GetAllTopics()
         {
-            string accessToken = Request.Cookies.Get("ACCESS_TOKEN").Value;
-            if(accessToken != null && Request.Cookies.Get("ROLE").Value.Equals(StaticDetails.ROLE_ADMIN))
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
             {
-                List<Test> testList = await RequestService.GetAllTests(accessToken);
-                return View(testList);
+                List<Test> testList = await RequestService.GetAllTests(accessTokenCookie.Value);
+                if(testList != null)
+                    return View(testList);
             }
 
             return RedirectToAction(nameof(Login));
         }
-        public ActionResult GetAllQuestions()
+        public async Task<ActionResult> GetAllQuestions(string testId)
         {
-            List<Questions> QuestionsList = new List<Questions>()
+            if(testId != null)
             {
-                new Questions{
-                    Id="Xh2Cn/W9mPorzijPK9QTFGUCPn0SYumMBc29BzJ8ZtA=",
-                    Description= "Which of the following statements is used to handle exceptions in C#?",
-                    Option1= "catch",
-                    Option2= "throw",
-                    Option3= "try-catch",
-                    Option4= "finally",
-                    Answer="try-catch",
-                    DifficultyLevel = "MEDIUM",
-                    TestId="FYznnbjioGX1QA89p7eRxPZcF/bu5yOX0neIQ7jLwos="},
-            };
-            
-            return View(QuestionsList);
+                var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+                var roleCookie = Request.Cookies.Get("ROLE");
+
+                if (accessTokenCookie != null &&
+                    accessTokenCookie.Value != null &&
+                    roleCookie != null &&
+                    roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+                )
+                {
+                    List<Questions> questionList = await RequestService.GetQuestionsByTestId(testId, accessTokenCookie.Value);
+                    ViewBag.TestId = testId;
+                    return View(questionList);
+                }
+            }
+
+            return RedirectToAction(nameof(Login));
         }
-        public ActionResult DeleteQuestions(Questions q)
+        public async Task<ActionResult> DeleteQuestions(string questionId, string testId)
         {
-            return View(q);
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
+            {
+                CreateQuestion question = await RequestService.GetQuestionById(questionId, accessTokenCookie.Value);
+                if(question != null)
+                {
+                    ViewBag.QuestionId = questionId;
+                    ViewBag.TestId = testId;
+                    return View(question);
+                }
+            }
+
+            return RedirectToAction(nameof(Login));
         }
         [HttpPost]
-        public ActionResult DeleteQuestionspost(Questions q)
+        public async Task<ActionResult> DeleteQuestionsPost(string questionId, string testId)
         {
-            if(ModelState.IsValid)
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
             {
-                return RedirectToAction(nameof(GetAllQuestions));
+                if(ModelState.IsValid)
+                {
+                    bool isDeleteSuccessfull = await RequestService.DeleteQuestion(questionId, testId, accessTokenCookie.Value);
+                    if(isDeleteSuccessfull)
+                    {
+                        return RedirectToAction(nameof(GetAllQuestions), new { testId = testId });
+                    }
+                }
             }
-            return View(q);
+
+            return RedirectToAction(nameof(Login));
         }
         //edit question
-        public ActionResult EditQuestions(Questions q)
+        public async Task<ActionResult> EditQuestions(string questionId, string testId)
         {
-            return View(q);
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
+            {
+                CreateQuestion question = await RequestService.GetQuestionById(questionId, accessTokenCookie.Value);
+                if (question != null)
+                {
+                    ViewBag.QuestionId = questionId;
+                    ViewBag.TestId = testId;
+                    ViewBag.CurrentDifficultyLevel = question.DifficultyLevel;
+                    return View(question);
+                }
+            }
+
+            return RedirectToAction(nameof(Login));
         }
         [HttpPost]
-        public ActionResult EditQuestionspost(Questions q)
+        public async Task<ActionResult> EditQuestionsPost(string questionId, string testId, CreateQuestion question)
+        {
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
+            {
+                if(ModelState.IsValid)
+                {
+                    Questions updatedQuestion = await RequestService.UpdateQuestion(questionId, testId, question, accessTokenCookie.Value);
+                    if (updatedQuestion != null)
+                    {
+                        return RedirectToAction(nameof(GetAllQuestions), new { testId = testId });
+                    }
+                }
+
+                return View(question);
+            }
+
+            return RedirectToAction(nameof(Login));
+        }
+
+        public ActionResult CreateQuestions(string testId)
+        {
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
+            {
+                ViewBag.TestId = testId;
+                return View();
+            }
+
+            return RedirectToAction(nameof(Login));
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateQuestions(string testId, CreateQuestion question)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(GetAllQuestions));
+                var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+                var roleCookie = Request.Cookies.Get("ROLE");
+
+                if (accessTokenCookie != null &&
+                    accessTokenCookie.Value != null &&
+                    roleCookie != null &&
+                    roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+                )
+                {
+                    Questions newCreatedQuestion = await RequestService.CreateQuestion(testId, question, accessTokenCookie.Value);
+                    if(newCreatedQuestion != null)
+                        return RedirectToAction(nameof(GetAllQuestions), new { testId});
+                }
             }
-            return View(q);
+            return View(question);
         }
 
-        public ActionResult CreateQuestions()
+        public async Task<ActionResult> StudentReports(string testId)
         {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreateQuestions(string TestId,Questions questions)
-        {
-            if (ModelState.IsValid)
+            var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
+            var roleCookie = Request.Cookies.Get("ROLE");
+
+            if (accessTokenCookie != null &&
+                accessTokenCookie.Value != null &&
+                roleCookie != null &&
+                roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
+            )
             {
-                return RedirectToAction(nameof(GetAllQuestions));
+                List<ReportsData> reports = await RequestService.GetReportsByTestId(testId, accessTokenCookie.Value);
+                if (reports != null)
+                    return View(reports);
             }
-            return View(questions);
 
-        }
-
-        public ActionResult StudentReports()
-        {
-            return View();
+            return RedirectToAction(nameof(Login));
         }
     }
 }

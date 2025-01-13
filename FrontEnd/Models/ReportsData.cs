@@ -29,7 +29,5 @@ namespace FrontEnd.Models
 
         public int TotalNoOfHardQuestions { get; set; }
         public string Result { get; set; }
-
-
     }
 }

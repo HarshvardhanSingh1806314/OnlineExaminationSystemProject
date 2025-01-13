@@ -27,34 +27,24 @@ namespace RESTApi.Controllers
             _reportRepository = new ReportRepository(_db);
         }
 
-        // admin and student route
+        // admin route
         [HttpGet]
-        [Route("GetReportsByTestName")]
-        public IHttpActionResult GetReportsByTestName(string testName)
+        [Route("GetReportsByTestId")]
+        public IHttpActionResult GetReportsByTestName(string testId)
         {
             try
             {
-                if(testName == null || testName.Trim().Length == 0)
+                if(testId == null)
                 {
                     throw new NullReferenceException("Test Id cannot be null");
                 }
 
-                // extracting userId and role
-                ClaimsPrincipal user = HttpContext.Current.User as ClaimsPrincipal;
-                string userRole = user.Claims.ElementAt(0).Value;
-                string userId = user.Claims.ElementAt(1).Value;
+                // extracting adminId
+                ClaimsPrincipal admin = HttpContext.Current.User as ClaimsPrincipal;
+                int adminId = int.Parse(admin.Claims.ElementAt(1).Value);
 
-                // fetching all the reports for the give testName and userId
-                List<Report> reportList = null;
-                if(userRole == StaticDetails.ROLE_ADMIN)
-                {
-                    int adminId = int.Parse(userId);
-                    reportList = _reportRepository.GetAll(r => r.Test.Name == testName && r.Test.AdminId == adminId, "Student,Test,Result").ToList();
-                }
-                else if(userRole == StaticDetails.ROLE_STUDENT)
-                {
-                    reportList = _reportRepository.GetAll(r => r.Test.Name == testName && r.StudentId == userId, "Student,Test,Result").ToList();
-                }
+                // fetching all the reports for the given testId
+                List<Report> reportList = _reportRepository.GetAll(r => r.TestId == testId && r.Test.AdminId == adminId, "Student,Test,Result").ToList();
 
                 if(reportList == null)
                 {
@@ -99,7 +89,7 @@ namespace RESTApi.Controllers
             }
         }
 
-        // route for both admin and student
+        // route for student
         [HttpGet]
         [Route("GetAllReports")]
         public IHttpActionResult GetAllReports()
@@ -107,24 +97,15 @@ namespace RESTApi.Controllers
             try
             {
                 // extracting user id and role
-                ClaimsPrincipal user = HttpContext.Current.User as ClaimsPrincipal;
-                string userId = user.Claims.ElementAt(1).Value;
-                string userRole = user.Claims.ElementAt(0).Value;
+                ClaimsPrincipal student = HttpContext.Current.User as ClaimsPrincipal;
+                string studentId = student.Claims.ElementAt(1).Value;
 
                 List<Report> reportList = null;
 
                 /* if role is admin then we will return all the reports for the tests where
                     AdminId == userId
                  */
-                if(userRole == StaticDetails.ROLE_ADMIN)
-                {
-                    int adminId = int.Parse(userId);
-                    reportList = _reportRepository.GetAll(r => r.Test.AdminId == adminId, "Student,Test,Result").ToList();
-                }
-                else if(userRole == StaticDetails.ROLE_STUDENT)
-                {
-                    reportList = _reportRepository.GetAll(r => r.StudentId == userId, "Student,Test,Result").ToList();
-                }
+                reportList = _reportRepository.GetAll(r => r.StudentId == studentId, "Student,Test,Result").ToList();
 
                 if(reportList == null)
                 {

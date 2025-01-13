@@ -36,17 +36,21 @@
             "/api/test/remove",
             "/api/test/update",
             "/api/test/getalltests",
+            "/api/test/getalltestandtestidlist",
             "/api/question/add",
             "/api/question/remove",
             "/api/question/update",
             "/api/question/getquestionsbytestid",
             "/api/question/getquestionsbydifficultylevel",
+            "/api/question/getquestionbyid",
+            "/api/report/getreportsbytestid",
             "/api/report/remove",
             "/api/report/update"
         };
 
         public static string[] STUDENT_ROUTES =
         {
+            "/api/report/getallreports",
             "/api/test/gettestsbyorgname",
             "/api/test/gettestbyid",
             "/api/test/submittest"
@@ -54,8 +58,6 @@
 
         public static string[] COMMON_ROUTES =
         {
-            "/api/report/getreportsbytestname",
-            "/api/report/getallreports",
             "/api/report/getreportbyid"
         };
     }
