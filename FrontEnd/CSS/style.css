@@ -73,11 +73,11 @@ body{
 
 .container{
 
-    display:grid;
-    width:96%;
+    display:inline-flex;
+    width:105%;
     margin:0 auto;
     gap:1.8rem;
-    grid-template-columns: 14rem auto 23rem;
+    grid-template-columns: 0.3rem auto 25rem;
 }
 
 a{

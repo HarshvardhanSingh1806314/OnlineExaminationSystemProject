@@ -20,9 +20,13 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
+<<<<<<< HEAD
             var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
             var roleCookie = Request.Cookies.Get("ROLE");
             if (accessTokenCookie != null && accessTokenCookie.Value != null)
+=======
+            if (Request.Cookies.Get("ACCESS_TOKEN") != null)
+>>>>>>> 0dd44482edffc90630b2a0781dc87a7b744bdb28
             {
                 Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
                 {
@@ -30,7 +34,11 @@ namespace FrontEnd.Controllers
                 });
             }
 
+<<<<<<< HEAD
             if (roleCookie != null && roleCookie.Value != null)
+=======
+            if(Request.Cookies.Get("ROLE") != null)
+>>>>>>> 0dd44482edffc90630b2a0781dc87a7b744bdb28
             {
                 Response.Cookies.Add(new HttpCookie("ROLE") { 
                     Expires = DateTime.Now.AddDays(-1)

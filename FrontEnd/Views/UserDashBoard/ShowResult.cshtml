@@ -1,0 +1,113 @@
+﻿@*@model FrontEnd.Models.ReportsData
+
+@{ ViewBag.Title = "ShowResult"; }*@
+
+
+
+<!--<div>
+    <h4>Your Result</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Result)
+        </dd>
+
+    </dl>
+
+
+</div>
+<br>
+<div>-->
+    @*<h5>Are you want to give exam again?</h5>*@
+
+    <!--<div>
+        <h1>
+            @Html.ActionLink("click here to go to next level", "Index", "UserDashBoard")
+        </h1>
+    </div>
+
+</div>-->
+
+@model FrontEnd.Models.ReportsData
+@{ ViewBag.Title = "ShowResult"; }
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h3 class="card-title text-center mb-4">Your Result</h3>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Student Name:</strong>
+                </div>
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.StudentName)
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Test Name:</strong>
+                </div>
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.TestName)
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Result:</strong>
+                </div>
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Result)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <h5>Would you like to take the exam again?</h5>
+        <div>
+            @Html.ActionLink("Proceed to the next level", "Index", "UserDashBoard", new { level = "next" }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .row {
+        padding: 8px 0;
+    }
+
+    h5 {
+        margin-top: 20px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+</style>
+

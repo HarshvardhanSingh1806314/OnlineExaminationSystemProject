@@ -1,0 +1,100 @@
+﻿@model IEnumerable<FrontEnd.Models.Questions>
+
+@{ ViewBag.Title = "ExamDisplay";
+    var questions = Model.ToList();
+    int totalQuestions = questions.Count; }
+
+@using Newtonsoft.Json
+
+<div class="container mt-4">
+    <h2>Exam</h2>
+    <div class="d-flex justify-content-between">
+        <p><strong>Total Questions:</strong> @totalQuestions</p>
+        <p><strong>Time Remaining:</strong> <span id="timer">10:00</span></p>
+    </div>
+    <hr />
+
+    <!-- Question Display -->
+    <div id="question-container" data-total-questions="@totalQuestions" data-current-index="0">
+        <div>
+            <h4 id="question-text"></h4>
+            <div id="options-container" class="mt-3">
+                <!-- Options will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="mt-4">
+        <button id="back-button" class="btn btn-secondary" disabled>Back</button>
+        <button id="next-button" class="btn btn-primary">Next</button>
+    </div>
+</div>
+
+<script>
+    // JavaScript for managing questions and navigation
+   const questions = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    let currentIndex = 0;
+
+    function loadQuestion(index) {
+        const question = questions[index];
+        document.getElementById('question-text').innerText = `Q${index + 1}: ${question.Description}`;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = ''; // Clear previous options
+
+        ['Option1', 'Option2', 'Option3', 'Option4'].forEach(option => {
+            if (question[option]) {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'form-check';
+                optionElement.innerHTML = `
+<input class="form-check-input" type="radio" name="question_${index}" value="${question[option]}" id="${option}_${index}">
+<label class="form-check-label" for="${option}_${index}">${question[option]}</label>
+                `;
+                optionsContainer.appendChild(optionElement);
+            }
+        });
+
+        document.getElementById('back-button').disabled = index === 0;
+        document.getElementById('next-button').innerText = index === questions.length - 1 ? 'Submit' : 'Next';
+    }
+
+    // Timer
+    let timeRemaining = 600; // 10 minutes in seconds
+    const timerElement = document.getElementById('timer');
+    function updateTimer() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        timerElement.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        timeRemaining--;
+
+        if (timeRemaining < 0) {
+            clearInterval(timerInterval);
+            alert('Time is up! Submitting your exam.');
+            document.getElementById('next-button').click(); // Auto-submit
+        }
+    }
+    const timerInterval = setInterval(updateTimer, 1000);
+
+    // Navigation
+    document.getElementById('back-button').addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadQuestion(currentIndex);
+        }
+    });
+
+    document.getElementById('next-button').addEventListener('click', () => {
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            loadQuestion(currentIndex);
+        } else {
+            // Submit the exam
+            alert('Submitting your answers...');
+            // Add form submission logic here
+        }
+    });
+
+    // Load the first question on page load
+    loadQuestion(currentIndex);
+</script>

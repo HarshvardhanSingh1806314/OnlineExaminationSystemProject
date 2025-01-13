@@ -46,27 +46,27 @@
                 </div>
             </div>
             <div class="sidebar">
-                <a href="#" class="active">
+                <a href="#dashboard" class="active">
                     <span><i class="fi fi-rr-home"></i></span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <a href="#profile">
                     <span><i class="fi fi-ss-user"></i></span>
                     <h3>Profile</h3>
                 </a>
-                <a href="#">
+                <a href="#courses">
                     <span><i class="fi fi-rr-books"></i></span>
                     <h3>Courses</h3>
                 </a>
-                <a href="#">
+                <a href="@Url.Action("StudentReportsuser", "UserDashBoard")">
                     <span><i class="fi fi-rs-trophy-star"></i></span>
                     <h3>Result</h3>
                 </a>
-                <a href="#">
+                @*<a href="#">
                     <span><i class="fi fi-rs-chart-histogram"></i></span>
                     <h3>Analytics</h3>
-                </a>
-                <a href="#">
+                </a>*@
+                <a href="@Url.Action("Login", "User")">
                     <i class="fi fi-rr-sign-out-alt"></i>
                     <h3>Logout</h3>
                 </a>
@@ -79,11 +79,14 @@
             <div class="date">
                 <input type="date">
             </div>
+            
 
-
-            <div class="cards">
+            <div class="cards" id="courses">
                 <div class="car">
                     <img src="~/Images/code3.png">
+                    <a href="@Url.Action("Levels", "UserDashBoard")">
+                        Click
+                    </a>
                     <div class="text">
                         <h2>JAVA</h2>
                     </div>
@@ -91,6 +94,9 @@
                 <div class="car">
 
                     <img src="~/Images/code5.png">
+                    <a href="@Url.Action("Levels", "UserDashBoard")">
+                        Click
+                    </a>
                     <div class="text">
                         <h2>PYTHON</h2>
                     </div>
@@ -98,6 +104,9 @@
                 <div class="car">
 
                     <img src="~/Images/code2.png">
+                    <a href="@Url.Action("Levels", "UserDashBoard")">
+                        Click
+                    </a>
                     <div class="text">
                         <h2>C#</h2>
                     </div>
@@ -186,18 +195,27 @@
             <div class="cards">
                 <div class="car">
                     <img src="~/Images/code3.png">
+                    <a href="@Url.Action("Levels", "UserDashBoard")">
+                        Click
+                    </a>
                     <div class="text">
                         <h2>SQL</h2>
                     </div>
                 </div>
                 <div class="car">
                     <img src="~/Images/code5.png">
+                    <a href="@Url.Action("Levels", "UserDashBoard")">
+                        Click
+                    </a>
                     <div class="text">
                         <h2>HTML</h2>
                     </div>
                 </div>
                 <div class="car">
                     <img src="~/Images/code2.png">
+                    <a href="@Url.Action("Levels", "UserDashBoard")">
+                        Click
+                    </a>
                     <div class="text">
                         <h2>CSS</h2>
                     </div>
@@ -209,7 +227,7 @@
 
         <!-- ================================================================================ -->
 
-        <div class="right">
+        <div class="right" id="profile">
             <div class="top">
                 <button id="menu-btn">
                     <i class="ri-menu-line"></i>
@@ -224,7 +242,7 @@
                         <small class="text-muted">User</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="~/Images/Image (7).jpg">
+                        <img src="~/Images/profile.jpg">
                     </div>
                 </div>
             </div>
