@@ -53,5 +53,9 @@ namespace FrontEnd.Controllers
             return View();
 
         }
+        public ActionResult Levels()
+        {
+            return View();
+        }
     }
 }

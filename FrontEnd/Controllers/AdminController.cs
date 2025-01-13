@@ -20,7 +20,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
-            if (Request.Cookies.Get("ACCESS_TOKEN").Value != null)
+            if (Request.Cookies.Get("ACCESS_TOKEN") != null)
             {
                 Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
                 {
@@ -28,7 +28,7 @@ namespace FrontEnd.Controllers
                 });
             }
 
-            if(Request.Cookies.Get("ROLE").Value != null)
+            if(Request.Cookies.Get("ROLE") != null)
             {
                 Response.Cookies.Add(new HttpCookie("ROLE") { 
                     Expires = DateTime.Now.AddDays(-1)
