@@ -66,7 +66,35 @@ namespace FrontEnd.AsyncServices
                         break;
                     case CHARACTER_OPEN_SQUARE_BRACKET:
                         input = input.Substring(0, i) + ENCODED_VALUE_FOR_OPEN_SQUARE_BRACKET + input.Substring(i + 1);
-                        break;                    case CHARACTER_CLOSE_SQUARE_BRACKET:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_CLOSE_SQUARE_BRACKET + input.Substring(i + 1);                        break;                    case CHARACTER_OPEN_CURLY_BRACKET:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_OPEN_CURLY_BRACKET + input.Substring(i + 1);                        break;                    case CHARACTER_CLOSE_CURLY_BRACKET:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_CLOSE_CURLY_BRACKET + input.Substring(i + 1);                        break;                    case CHARACTER_PERCENT:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_PERCENT + input.Substring(i + 1);                        break;                    case CHARACTER_CARET:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_CARET + input.Substring(i + 1);                        break;                    case CHARACTER_LESS_THAN:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_LESS_THAN + input.Substring(i + 1);                        break;                    case CHARACTER_GREATER_THAN:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_GREATER_THAN + input.Substring(i + 1);                        break;                    case CHARACTER_DOUBLE_QUOTE:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_DOUBLE_QUOTE + input.Substring(i + 1);                        break;                    case CHARACTER_SINGLE_QUOTE:                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_SINGLE_QUOTE + input.Substring(i + 1);                        break;                }
+                        break;
+                    case CHARACTER_CLOSE_SQUARE_BRACKET:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_CLOSE_SQUARE_BRACKET + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_OPEN_CURLY_BRACKET:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_OPEN_CURLY_BRACKET + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_CLOSE_CURLY_BRACKET:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_CLOSE_CURLY_BRACKET + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_PERCENT:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_PERCENT + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_CARET:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_CARET + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_LESS_THAN:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_LESS_THAN + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_GREATER_THAN:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_GREATER_THAN + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_DOUBLE_QUOTE:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_DOUBLE_QUOTE + input.Substring(i + 1);
+                        break;
+                    case CHARACTER_SINGLE_QUOTE:
+                        input = input.Substring(0, i) + ENCODED_VALUE_FOR_SINGLE_QUOTE + input.Substring(i + 1);
+                        break;
+                }
 
             }
             
