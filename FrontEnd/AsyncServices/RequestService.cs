@@ -1,9 +1,11 @@
 ﻿using FrontEnd.Models;
+using FrontEnd.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -24,12 +26,28 @@ namespace FrontEnd.AsyncServices
             return new StringContent(data, Encoding.UTF8, "application/json");
         }
 
-        private static async Task<string> SendRequest(string apiEndPoint, HttpContent requestData)
+        private static async Task<string> SendRequest(string apiEndPoint, string requestType, HttpContent requestData = null)
         {
-            HttpResponseMessage httpResponse = await httpClient.PostAsync(apiEndPoint, requestData);
-            if(httpResponse.IsSuccessStatusCode)
+            HttpResponseMessage httpResponse = null;
+            switch (requestType)
             {
-                return await httpResponse.Content.ReadAsStringAsync();
+                case StaticDetails.REQUEST_TYPE_GET:
+                    httpResponse = await httpClient.GetAsync(apiEndPoint);
+                    break;
+                case StaticDetails.REQUEST_TYPE_POST:
+                    httpResponse = await httpClient.PostAsync(apiEndPoint, requestData);
+                    break;
+                case StaticDetails.REQUEST_TYPE_PUT:
+                    httpResponse = await httpClient.PutAsync(apiEndPoint, requestData);
+                    break;
+                case StaticDetails.REQUEST_TYPE_DELETE:
+                    httpResponse = await httpClient.DeleteAsync(apiEndPoint);
+                    break;
+            }
+            if(httpResponse != null && httpResponse.IsSuccessStatusCode)
+            {
+                string response = await httpResponse.Content.ReadAsStringAsync();
+                return response != null && response.Length > 0 ? response : StaticDetails.RESPONSE_OK;
             }
 
             return null;
@@ -38,7 +56,7 @@ namespace FrontEnd.AsyncServices
         public static async Task<string> StudentLoginServive(StudentLogin studentLoginCredentials)
         {
             HttpContent postLoginRequestData = CreateRequestContent(studentLoginCredentials);
-            string response = await SendRequest("/api/Auth/Student/Login", postLoginRequestData);
+            string response = await SendRequest("/api/Auth/Student/Login", StaticDetails.REQUEST_TYPE_POST, postLoginRequestData);
             LoginModel loginResponse = JsonConvert.DeserializeObject<LoginModel>(response);
             return loginResponse.AccessToken;
         }
@@ -46,16 +64,31 @@ namespace FrontEnd.AsyncServices
         public static async Task<bool> StudentRegisterService(Student studentRegistrationData)
         {
             HttpContent postRegisterRequestData = CreateRequestContent(studentRegistrationData);
-            HttpResponseMessage httpResponse = await httpClient.PostAsync("/api/Auth/Student/Register", postRegisterRequestData);
-            return httpResponse.IsSuccessStatusCode;
+            string response = await SendRequest("/api/Auth/Student/Register", StaticDetails.REQUEST_TYPE_POST, postRegisterRequestData);
+            return response == StaticDetails.RESPONSE_OK;
         }
 
         public static async Task<string> AdminLoginService(Admin adminLoginCredentials)
         {
             HttpContent postLoginRequestData = CreateRequestContent(adminLoginCredentials);
-            string response = await SendRequest("/api/Auth/Admin/Login", postLoginRequestData);
+            string response = await SendRequest("/api/Auth/Admin/Login", StaticDetails.REQUEST_TYPE_POST, postLoginRequestData);
             LoginModel loginResponse = JsonConvert.DeserializeObject<LoginModel>(response);
             return loginResponse.AccessToken;
+        }
+
+        public static async Task<Test> CreateNewTest(AddTest test, string accessToken)
+        {
+            HttpContent postAddTestRequest = CreateRequestContent(test);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string response = await SendRequest("/api/Test/Add", StaticDetails.REQUEST_TYPE_POST, postAddTestRequest);
+            return JsonConvert.DeserializeObject<Test>(response);
+        }
+
+        public static async Task<List<Test>> GetAllTests(string accessToken)
+        {
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string response = await SendRequest("/api/Test/GetAllTests", StaticDetails.REQUEST_TYPE_GET);
+            return JsonConvert.DeserializeObject<List<Test>>(response);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace RESTApi.Controllers
                 {
                     reportResponseList[i] = new
                     {
-                        reportList[i].Student.Username,
+                        StudentName = reportList[i].Student.Username,
                         TestName = reportList[i].Test.Name,
                         TestDuration = reportList[i].Test.Duration,
                         CorrectAttemptsInEasyQuestions = reportList[i].CorrectAttempsInEasyQuestions,

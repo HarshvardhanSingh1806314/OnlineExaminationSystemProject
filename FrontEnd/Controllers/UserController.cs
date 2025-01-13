@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FrontEnd.AsyncServices;
 using FrontEnd.Models;
+using FrontEnd.Utility;
 using Newtonsoft.Json;
 using static FrontEnd.Models.ResponseModels;
 
@@ -24,7 +25,20 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
-            Response.Cookies.Remove("ACCESS_TOKEN");
+            if(Request.Cookies.Get("ACCESS_TOKEN").Value != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
+
+            if(Request.Cookies.Get("ROLE").Value != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ROLE") { 
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
             ViewBag.Message = "Your User page.";
             return View();
         }
@@ -34,8 +48,20 @@ namespace FrontEnd.Controllers
             if(ModelState.IsValid)
             {
                 string accessToken = await RequestService.StudentLoginServive(studentlogin);
-                HttpCookie httpCookie = new HttpCookie("ACCESS_TOKEN", accessToken);
-                Response.Cookies.Add(httpCookie);
+                string roleHash = IdGenerator.GenerateRoleId("STUDENT");
+                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                Response.Cookies.Add(accessTokenCookie);
+                HttpCookie roleCookie = new HttpCookie("ROLE", roleHash)
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                Response.Cookies.Add(roleCookie);
                 return RedirectToAction(nameof(Index));
             }
             return View(studentlogin);
