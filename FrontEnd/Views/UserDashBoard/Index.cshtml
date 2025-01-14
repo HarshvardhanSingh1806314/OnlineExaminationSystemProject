@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model List<FrontEnd.Models.UserTest>
+
+@{ 
+    var Username = ViewBag.Username;
+    int count = 0;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,7 +73,7 @@
                     <span><i class="fi fi-rs-chart-histogram"></i></span>
                     <h3>Analytics</h3>
                 </a>*@
-                <a href="@Url.Action("Login", "User")">
+                <a href="@Url.Action("Logout", "User")">
                     <i class="fi fi-rr-sign-out-alt"></i>
                     <h3>Logout</h3>
                 </a>
@@ -80,18 +87,25 @@
                 <input type="date">
             </div>
             
-
+            
             <div class="cards" id="courses">
-                <div class="car">
-                    <img src="~/Images/code3.png">
-                    <a href="@Url.Action("Levels", "UserDashBoard")">
-                        Click
-                    </a>
-                    <div class="text">
-                        <h2>JAVA</h2>
-                    </div>
-                </div>
-                <div class="car">
+                @foreach (var item in Model)
+                {
+                    if(count < 3)
+                    {
+                        <div class="car">
+                            <img src="~/Images/code3.png">
+                            <a href="@Url.Action("ExamDisplay", new { testId = item.TestId, difficultyLevel = "easy"})">
+                                Click
+                            </a>
+                            <div class="text">
+                                <h2>@item.Name</h2>
+                            </div>
+                        </div>
+                        count = count + 1;
+                    }
+                }
+                @*<div class="car">
 
                     <img src="~/Images/code5.png">
                     <a href="@Url.Action("Levels", "UserDashBoard")">
@@ -110,7 +124,7 @@
                     <div class="text">
                         <h2>C#</h2>
                     </div>
-                </div>
+                </div>*@
             </div>
 
 
@@ -193,16 +207,32 @@
 
             <!-- ------------------------------------------------------------------------------------------------------ -->
             <div class="cards">
-                <div class="car">
-                    <img src="~/Images/code3.png">
-                    <a href="@Url.Action("Levels", "UserDashBoard")">
-                        Click
-                    </a>
-                    <div class="text">
-                        <h2>SQL</h2>
-                    </div>
-                </div>
-                <div class="car">
+                @{ 
+                    int temp = 0;
+                    foreach(var item in Model)
+                    {
+                        if(temp < count)
+                        {
+                            temp = temp + 1;
+                            continue;
+                        }
+                        if(count < 6)
+                        {
+                            <div class="car">
+                                <img src="~/Images/code3.png">
+                                <a href="@Url.Action("ExamDisplay", new { testId = item.TestId, difficultyLevel = "easy"})">
+                                    Click
+                                </a>
+                                <div class="text">
+                                    <h2>@item.Name</h2>
+                                </div>
+                            </div>
+                            count = count + 1;
+                            temp = count + 1;
+                        }
+                }
+                }
+                @*<div class="car">
                     <img src="~/Images/code5.png">
                     <a href="@Url.Action("Levels", "UserDashBoard")">
                         Click
@@ -219,7 +249,7 @@
                     <div class="text">
                         <h2>CSS</h2>
                     </div>
-                </div>
+                </div>*@
             </div>
 
 
@@ -238,7 +268,7 @@
                 </div>
                 <div class="profile">
                     <div class="info">
-                        <p>Hey,<b> Mohith </b></p>
+                        <p>Hey,<b> @Username </b></p>
                         <small class="text-muted">User</small>
                     </div>
                     <div class="profile-photo">

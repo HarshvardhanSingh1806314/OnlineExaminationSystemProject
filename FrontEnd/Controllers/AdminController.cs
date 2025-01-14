@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
+using static FrontEnd.Models.ResponseModels;
 
 namespace FrontEnd.Controllers
 {
@@ -20,12 +20,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Login()
         {
-<<<<<<< HEAD
             var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
             var roleCookie = Request.Cookies.Get("ROLE");
             if (accessTokenCookie != null && accessTokenCookie.Value != null)
-=======
->>>>>>> 0dd44482edffc90630b2a0781dc87a7b744bdb28
             {
                 Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
                 {
@@ -33,11 +30,7 @@ namespace FrontEnd.Controllers
                 });
             }
 
-<<<<<<< HEAD
             if (roleCookie != null && roleCookie.Value != null)
-=======
-
->>>>>>> 0dd44482edffc90630b2a0781dc87a7b744bdb28
             {
                 Response.Cookies.Add(new HttpCookie("ROLE") { 
                     Expires = DateTime.Now.AddDays(-1)
@@ -52,10 +45,10 @@ namespace FrontEnd.Controllers
         {
             if(ModelState.IsValid)
             {
-                string accessToken = await RequestService.AdminLoginService(admin);
+                LoginModel loggedInUser  = await RequestService.AdminLoginService(admin);
                 string roleHash = IdGenerator.GenerateRoleId("ADMIN");
                 StaticDetails.ROLE_ADMIN = roleHash;
-                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
+                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", loggedInUser.AccessToken)
                 {
                     HttpOnly = true,
                     Secure = true,
@@ -170,7 +163,7 @@ namespace FrontEnd.Controllers
             return View();
         }
 
-        //get list of topics
+        //get list of tests
         public async Task<ActionResult> GetAllTopics()
         {
             var accessTokenCookie = Request.Cookies.Get("ACCESS_TOKEN");
@@ -357,7 +350,7 @@ namespace FrontEnd.Controllers
                 roleCookie.Value.Equals(StaticDetails.ROLE_ADMIN)
             )
             {
-                List<ReportsData> reports = await RequestService.GetReportsByTestId(testId, accessTokenCookie.Value);
+                List<StudentReports> reports = await RequestService.GetReportsByTestId(testId, accessTokenCookie.Value);
                 if (reports != null)
                     return View(reports);
             }

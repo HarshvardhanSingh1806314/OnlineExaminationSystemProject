@@ -456,6 +456,73 @@ namespace RESTApi.Controllers
         }
 
         [HttpGet]
+        [Route("GetQuestionsByTestIdAndDifficultyLevel")]
+        public IHttpActionResult GetQuestionsByTestIdAndDifficultyLevel(string testId, string difficultyLevel)
+        {
+            try
+            {
+                if (testId == null || testId.Length == 0 || difficultyLevel == null || difficultyLevel.Length == 0)
+                {
+                    throw new NullReferenceException("TestId and Difficulty Level cannot be null");
+                }
+
+                // fetching the questions based on testId and difficulty level
+                List<Question> questionList = null;
+                string difficultyLevelId = null;
+                switch (difficultyLevel.ToUpper())
+                {
+                    case StaticDetails.DIFFICULTY_EASY:
+                        difficultyLevelId = _db.DifficultyLevels.FirstOrDefault(dfl => dfl.LevelName == StaticDetails.DIFFICULTY_EASY).Id;
+                        questionList = _questionRepository.GetAll(q => q.DifficultyLevelId == difficultyLevelId && q.TestId == testId, "DifficultyLevel").ToList();
+                        break;
+                    case StaticDetails.DIFFICULTY_MEDIUM:
+                        difficultyLevelId = _db.DifficultyLevels.FirstOrDefault(dfl => dfl.LevelName == StaticDetails.DIFFICULTY_MEDIUM).Id;
+                        questionList = _questionRepository.GetAll(q => q.DifficultyLevelId == difficultyLevelId && q.TestId == testId, "DifficultyLevel").ToList();
+                        break;
+                    case StaticDetails.DIFFICULTY_HARD:
+                        difficultyLevelId = _db.DifficultyLevels.FirstOrDefault(dfl => dfl.LevelName == StaticDetails.DIFFICULTY_HARD).Id;
+                        questionList = _questionRepository.GetAll(q => q.DifficultyLevelId == difficultyLevelId && q.TestId == testId, "DifficultyLevel").ToList();
+                        break;
+                }
+
+                if(questionList == null)
+                {
+                    throw new NullEntityException("Not Found");
+                }
+
+                Object[] questionResponseList = new Object[questionList.Count];
+                for (int i = 0; i < questionList.Count; i++)
+                {
+                    questionResponseList[i] = new
+                    {
+                        questionList[i].Id,
+                        questionList[i].Description,
+                        questionList[i].Option1,
+                        questionList[i].Option2,
+                        questionList[i].Option3,
+                        questionList[i].Option4,
+                        DifficultyLevel = questionList[i].DifficultyLevel.LevelName,
+                        questionList[i].TestId
+                    };
+                }
+
+                return Ok(questionResponseList);
+            }
+            catch(NullEntityException)
+            {
+                return NotFound();
+            }
+            catch(NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("GetQuestionById")]
         public IHttpActionResult GetQuestionById(string questionId)
         {

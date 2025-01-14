@@ -84,7 +84,8 @@ namespace RESTApi.Middlewares
         {
             string path = request.RequestUri.AbsolutePath.ToLower();
             return path.Contains(StaticDetails.STUDENT_LOGIN_PATH) || path.Contains(StaticDetails.STUDENT_REGISTER_PATH)
-                || path.Contains(StaticDetails.ADMIN_LOGIN_PATH) || path.Contains(StaticDetails.ADMIN_REGISTER_PATH);
+                || path.Contains(StaticDetails.ADMIN_LOGIN_PATH) || path.Contains(StaticDetails.ADMIN_REGISTER_PATH)
+                || path.Contains(StaticDetails.STUDENT_RESET_PASSWORD_PATH);
         }
 
         // validating JWT token

@@ -485,7 +485,7 @@
                             @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
                         </div>
                         <div class="links">
-                            <a href="#">Forgot Password</a>
+                            <a href="@Url.Action("Reset", "User")">Reset Password</a>
                             <a href="@Url.Action("Register", "User")">SignUp</a>
                         </div>
                         <div class="inputbox">

@@ -145,11 +145,16 @@ namespace RESTApi.Models
 
         public struct SubmitTestModel
         {
-            public List<QuestionResponse> EasyLevel { get; set; }
+            public List<QuestionResponse> QuestionResponses { get; set; }
+        }
 
-            public List<QuestionResponse> MediumLevel { get; set; }
+        public struct ResetStudentPassword
+        {
+            public string Email { get; set; }
 
-            public List<QuestionResponse> HardLevel { get; set; }
+            public string NewPassword { get; set; }
+
+            public string ConfirmPassword { get; set; }
         }
     }
 }

@@ -128,12 +128,12 @@ namespace FrontEnd.AsyncServices
             return null;
         }
 
-        public static async Task<string> StudentLoginServive(StudentLogin studentLoginCredentials)
+        public static async Task<LoginModel> StudentLoginServive(StudentLogin studentLoginCredentials)
         {
             HttpContent postLoginRequestData = CreateRequestContent(studentLoginCredentials);
             string response = await SendRequest("/api/Auth/Student/Login", REQUEST_TYPE_POST, postLoginRequestData);
             LoginModel loginResponse = JsonConvert.DeserializeObject<LoginModel>(response);
-            return loginResponse.AccessToken;
+            return loginResponse;
         }
 
         public static async Task<bool> StudentRegisterService(Student studentRegistrationData)
@@ -143,12 +143,12 @@ namespace FrontEnd.AsyncServices
             return response == StaticDetails.RESPONSE_OK;
         }
 
-        public static async Task<string> AdminLoginService(Admin adminLoginCredentials)
+        public static async Task<LoginModel> AdminLoginService(Admin adminLoginCredentials)
         {
             HttpContent postLoginRequestData = CreateRequestContent(adminLoginCredentials);
             string response = await SendRequest("/api/Auth/Admin/Login", REQUEST_TYPE_POST, postLoginRequestData);
             LoginModel loginResponse = JsonConvert.DeserializeObject<LoginModel>(response);
-            return loginResponse.AccessToken;
+            return loginResponse;
         }
 
         public static async Task<Test> CreateNewTest(AddTest test, string accessToken)
@@ -243,15 +243,71 @@ namespace FrontEnd.AsyncServices
             return response == RESPONSE_OK;
         }
 
-        public static async Task<List<ReportsData>> GetReportsByTestId(string testId, string accessToken)
+        public static async Task<List<StudentReports>> GetReportsByTestId(string testId, string accessToken)
         {
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             testId = EncodeUrl(testId);
             string response = await SendRequest($"/api/Report/GetReportsByTestId?testId={testId}", REQUEST_TYPE_GET);
             if (response != null)
-                return JsonConvert.DeserializeObject<List<ReportsData>>(response);
+                return JsonConvert.DeserializeObject<List<StudentReports>>(response);
 
             return null;
+        }
+
+        public static async Task<List<UserTest>> GetTests(string accessToken)
+        {
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string response = await SendRequest("/api/Test/GetTests", REQUEST_TYPE_GET);
+            if(response != null)
+            {
+                return JsonConvert.DeserializeObject<List<UserTest>>(response);
+            }
+
+            return null;
+        }
+
+        public static async Task<List<Questions>> GetQuestionsByTestIdAndDifficultyLevel(string testId, string difficultyLevel, string accessToken)
+        {
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            testId = EncodeUrl(testId);
+            string response = await SendRequest($"/api/Question/GetQuestionsByTestIdAndDifficultyLevel?testId={testId}&difficultyLevel={difficultyLevel}", REQUEST_TYPE_GET);
+            if(response != null)
+            {
+                return JsonConvert.DeserializeObject<List<Questions>>(response);
+            }
+
+            return null;
+        }
+
+        public static async Task<Result> SubmitTest(string testId, string difficultyLevel, SubmitQuestionResponse questionResponses, string accessToken)
+        {
+            HttpContent postSubmitTestRequestData = CreateRequestContent(questionResponses);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            testId = EncodeUrl(testId);
+            string response = await SendRequest($"/api/Test/SubmitTest?testId={testId}&difficultyLevel={difficultyLevel}", REQUEST_TYPE_POST, postSubmitTestRequestData);
+            if(response != null)
+            {
+                return JsonConvert.DeserializeObject<Result>(response);
+            }
+
+            return null;
+        }
+
+        public static async Task<List<StudentReport>> GetAllStudentReports(string accessToken)
+        {
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string response = await SendRequest($"/api/Report/GetAllStudentReports", REQUEST_TYPE_GET);
+            if (response != null)
+                return JsonConvert.DeserializeObject<List<StudentReport>>(response);
+
+            return null;
+        }
+
+        public static async Task<bool> ResetStudentPassword(Resetpassword resetpassword)
+        {
+            HttpContent postResetPasswordRequestData = CreateRequestContent(resetpassword);
+            string response = await SendRequest("/api/Student/ResetPassword", REQUEST_TYPE_PUT, postResetPasswordRequestData);
+            return response == RESPONSE_OK;
         }
     }
 }

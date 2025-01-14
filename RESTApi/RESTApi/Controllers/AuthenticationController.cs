@@ -189,7 +189,7 @@ namespace RESTApi.Controllers
             }
         }
 
-        private object GenerateJwtToken(string role, string userId)
+        private string GenerateJwtToken(string role, string userId)
         {
             // creating the security key that will be used to sign the jwt token
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(StaticDetails.JWT_TOKEN_SECRET_KEY));
@@ -214,7 +214,7 @@ namespace RESTApi.Controllers
             );
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            return new { AccessToken = tokenHandler.WriteToken(authenticationToken) };
+            return tokenHandler.WriteToken(authenticationToken);
         }
 
         [HttpPost]
@@ -247,7 +247,7 @@ namespace RESTApi.Controllers
 
                 // creating jwt token
                 UserRole userRole = _db.UserRoles.Include("Role").FirstOrDefault(ur => ur.UserId == studentExist.Id);
-                return Ok(GenerateJwtToken(userRole.Role.Name, studentExist.Id));
+                return Ok(new { studentExist.Username, AccessToken = GenerateJwtToken(userRole.Role.Name, studentExist.Id) });
             }
             catch(InvalidCredentialsException ex)
             {
@@ -287,7 +287,7 @@ namespace RESTApi.Controllers
 
                 // creating jwt token
                 UserRole userRole = _db.UserRoles.Include("Role").FirstOrDefault(ur => ur.UserId == adminExist.AdminId.ToString());
-                return Ok(GenerateJwtToken(userRole.Role.Name, adminExist.AdminId.ToString()));
+                return Ok(new { adminExist.Username, AccessToken = GenerateJwtToken(userRole.Role.Name, adminExist.AdminId.ToString()) });
             }
             catch(InvalidCredentialsException ex)
             {

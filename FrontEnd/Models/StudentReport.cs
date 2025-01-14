@@ -5,11 +5,13 @@ using System.Web;
 
 namespace FrontEnd.Models
 {
-    public class StudentReports
+    public class StudentReport
     {
         public string StudentName { get; set; }
 
         public string TestName { get; set; }
+
+        public string OrganizationName { get; set; }
 
         public int TestDuration { get; set; }
 

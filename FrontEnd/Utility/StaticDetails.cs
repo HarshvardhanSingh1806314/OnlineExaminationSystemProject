@@ -11,6 +11,8 @@ namespace FrontEnd.Utility
 
         public static string ROLE_STUDENT = null;
 
+        public static string USERNAME = null;
+
         public const string REQUEST_TYPE_GET = "GET";
 
         public const string REQUEST_TYPE_POST = "POST";

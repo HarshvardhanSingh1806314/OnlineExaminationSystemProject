@@ -30,6 +30,8 @@
 
         public const string ADMIN_REGISTER_PATH = "/api/auth/admin/register";
 
+        public const string STUDENT_RESET_PASSWORD_PATH = "/api/student/resetpassword";
+
         public static string[] ADMIN_ROUTES =
         {
             "/api/test/add",
@@ -50,10 +52,12 @@
 
         public static string[] STUDENT_ROUTES =
         {
-            "/api/report/getallreports",
+            "/api/report/getallstudentreports",
             "/api/test/gettestsbyorgname",
             "/api/test/gettestbyid",
-            "/api/test/submittest"
+            "/api/test/submittest",
+            "/api/test/gettests",
+            "/api/question/getquestionsbytestidanddifficultylevel"
         };
 
         public static string[] COMMON_ROUTES =

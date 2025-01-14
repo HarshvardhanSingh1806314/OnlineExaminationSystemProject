@@ -91,7 +91,7 @@ namespace RESTApi.Controllers
 
         // route for student
         [HttpGet]
-        [Route("GetAllReports")]
+        [Route("GetAllStudentReports")]
         public IHttpActionResult GetAllReports()
         {
             try
@@ -118,7 +118,7 @@ namespace RESTApi.Controllers
                 {
                     reportResponseList[i] = new
                     {
-                        reportList[i].Student.Username,
+                        StudentName = reportList[i].Student.Username,
                         TestName = reportList[i].Test.Name,
                         reportList[i].Test.Admin.OrganizationName,
                         TestDuration = reportList[i].Test.Duration,

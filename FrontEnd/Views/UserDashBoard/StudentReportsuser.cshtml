@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FrontEnd.Models.ReportsData>
+﻿@model List<FrontEnd.Models.StudentReport>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -6,43 +6,46 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StudentName)
+            @Html.DisplayNameFor(model => model[0].StudentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TestName)
+            @Html.DisplayNameFor(model => model[0].TestName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TestDuration)
+            @Html.DisplayNameFor(model => model[0].OrganizationName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CorrectAttemptsInEasyQuestions)
+            @Html.DisplayNameFor(model => model[0].TestDuration)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalAttemptsInEasyQuestions)
+            @Html.DisplayNameFor(model => model[0].CorrectAttemptsInEasyQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalNoOfEasyQuestions)
+            @Html.DisplayNameFor(model => model[0].TotalAttemptsInEasyQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CorrectAttemptsInMediumQuestions)
+            @Html.DisplayNameFor(model => model[0].TotalNoOfEasyQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalAttemptsInMediumQuestions)
+            @Html.DisplayNameFor(model => model[0].CorrectAttemptsInMediumQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalNoOfMediumQuestions)
+            @Html.DisplayNameFor(model => model[0].TotalAttemptsInMediumQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CorrectAttemptsInHardQuestions)
+            @Html.DisplayNameFor(model => model[0].TotalNoOfMediumQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalAttemptsInHardQuestions)
+            @Html.DisplayNameFor(model => model[0].CorrectAttemptsInHardQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalNoOfHardQuestions)
+            @Html.DisplayNameFor(model => model[0].TotalAttemptsInHardQuestions)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Result)
+            @Html.DisplayNameFor(model => model[0].TotalNoOfHardQuestions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Result)
         </th>
         <th></th>
     </tr>
@@ -54,6 +57,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TestName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganizationName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TestDuration)
@@ -88,12 +94,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Result)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
     </tr>
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Back To Dashboard", "Index")
+</p>

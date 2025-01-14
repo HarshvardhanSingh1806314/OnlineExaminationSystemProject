@@ -1,8 +1,9 @@
-﻿@model IEnumerable<FrontEnd.Models.Questions>
+﻿@model List<FrontEnd.Models.Questions>
 
-@{ ViewBag.Title = "ExamDisplay";
-    var questions = Model.ToList();
-    int totalQuestions = questions.Count; }
+@{ 
+    ViewBag.Title = "ExamDisplay";
+    int totalQuestions = Model.Count;
+}
 
 @using Newtonsoft.Json
 
@@ -35,6 +36,7 @@
     // JavaScript for managing questions and navigation
    const questions = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
     let currentIndex = 0;
+    let questionResponses = {};
 
     function loadQuestion(index) {
         const question = questions[index];
@@ -53,6 +55,16 @@
                 `;
                 optionsContainer.appendChild(optionElement);
             }
+        });
+
+        let radios = document.querySelectorAll(`input[name=question_${index}]`);
+        radios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                questionResponses[`question_${index}`] = {
+                    "questionId": question.Id,
+                    "answer": this.value
+                }
+            });
         });
 
         document.getElementById('back-button').disabled = index === 0;
@@ -92,6 +104,27 @@
             // Submit the exam
             alert('Submitting your answers...');
             // Add form submission logic here
+            let finalResponses = [];
+            for (let key in questionResponses) {
+                if (questionResponses.hasOwnProperty(key)) {
+                    finalResponses.push(questionResponses[key]);
+                }
+            }
+            console.log(finalResponses);
+            $.ajax({
+                url: '/UserDashBoard/Submit',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ testId: questions[currentIndex].TestId, difficultyLevel: questions[currentIndex].DifficultyLevel, questionResponses: finalResponses }),
+                success: function (data) {
+                    if (data.redirectUrl) {
+                        window.location.href = data.redirectUrl;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("submission failed");
+                }
+            });
         }
     });
 

@@ -226,12 +226,26 @@ namespace RESTApi.Controllers
                 int adminId = int.Parse(user.Claims.ElementAt(1).Value);
 
                 // fetching all the test that current admin has created
-                List<Test> testList = _testRepository.GetAll(t => t.AdminId == adminId).ToList();
-                if (testList == null || testList.Count == 0)
+                List<Test> tests = _testRepository.GetAll(t => t.AdminId == adminId).ToList();
+                if (tests == null || tests.Count == 0)
                 {
                     throw new NullEntityException("No Tests Available");
                 }
 
+                Object[] testList = new object[tests.Count];
+                for (int i = 0; i < tests.Count; i++)
+                {
+                    testList[i] = new
+                    {
+                        tests[i].Name,
+                        tests[i].Description,
+                        tests[i].TotalNoOfEasyQuestions,
+                        tests[i].TotalNoOfMediumQuestions,
+                        tests[i].TotalNoOfHardQuestions,
+                        tests[i].TotalNoOfQuestions,
+                        tests[i].Duration
+                    };
+                }
                 return Ok(testList);
             }
             catch(NullEntityException)
@@ -371,9 +385,66 @@ namespace RESTApi.Controllers
             }
         }
 
+        // student route
+        [HttpGet]
+        [Route("GetTests")]
+        public IHttpActionResult GetTests()
+        {
+            try
+            {
+                List<Test> tests = _testRepository.GetAll().ToList();
+                List<object> randomTests = new List<object>();
+                if(tests.Count == 0)
+                {
+                    throw new NullEntityException("Not Found");
+                }
+                
+                // if there are more than 6 tests present in database then it will send back random 6 tests
+                if(tests.Count > 6)
+                {
+                    int randomIndex = 0;
+                    Random randomIndexGenerator = new Random();
+                    while(randomTests.Count < 6)
+                    {
+                        randomIndex = randomIndexGenerator.Next(0, tests.Count - 1);
+                        randomTests.Add(new
+                        {
+                            tests[randomIndex].TestId,
+                            tests[randomIndex].Name,
+                            tests[randomIndex].Duration
+                        });
+                        tests.RemoveAt(randomIndex);
+                    }
+                }
+                // otherwise it will send the existing tests
+                else
+                {
+                    foreach(Test test in tests)
+                    {
+                        randomTests.Add(new
+                        {
+                            test.TestId,
+                            test.Name,
+                            test.Duration
+                        });
+                    }
+                }
+
+                return Ok(randomTests);
+            }
+            catch(NullEntityException)
+            {
+                return NotFound();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("SubmitTest")]
-        public IHttpActionResult SubmitTest(string testId, [FromBody] SubmitTestModel submitTestModel)
+        public IHttpActionResult SubmitTest(string testId, string difficultyLevel, [FromBody] SubmitTestModel submitTestModel)
         {
             try
             {
@@ -400,88 +471,194 @@ namespace RESTApi.Controllers
                     throw new NullEntityException("Student doed not exist");
                 }
 
+
                 // creating a report object
-                String reportId = IdGenerator.GenerateIdForReports(studentId, testId);
-                Report testReport = new Report
+                Report testReport = _db.Reports.FirstOrDefault(r => r.StudentId == studentId && r.TestId == testId);
+                if(testReport == null)
                 {
-                    Id = reportId,
-                    StudentId = studentId,
-                    TestId = testId
-                };
-
-                // evaluating easy level questions
-                foreach(QuestionResponse response in submitTestModel.EasyLevel)
-                {
-                    if(response.Answer != null && response.Answer.Length > 0)
+                    string reportId = IdGenerator.GenerateIdForReports(studentId, testId);
+                    testReport = new Report
                     {
-                        testReport.TotalAttemptsInEasyQuestions += 1;
-                        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
-                        {
-                            testReport.CorrectAttempsInEasyQuestions += 1;
-                        }
-                    }
+                        Id = reportId,
+                        StudentId = studentId,
+                        TestId = testId
+                    };
                 }
 
-                // evaluating medium level questions
-                foreach(QuestionResponse response in submitTestModel.MediumLevel) {
-                    if(response.Answer != null && response.Answer.Length > 0)
+                // evaluating questions
+                bool passed = false;
+                int correctAttemtps = 0;
+                int totalAttempts = 0;
+                int totalQuestions = 0;
+                switch (difficultyLevel.ToUpper())
+                {
+                    case StaticDetails.DIFFICULTY_EASY:
+                        totalQuestions = testExist.TotalNoOfEasyQuestions;
+                        foreach(QuestionResponse response in submitTestModel.QuestionResponses)
+                        {
+                            if(response.Answer != null && response.Answer.Length > 0)
+                            {
+                                testReport.TotalAttemptsInEasyQuestions += 1;
+                                totalAttempts++;
+                                if(response.Answer.Trim().ToLower() == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer.ToLower())
+                                {
+                                    testReport.CorrectAttempsInEasyQuestions += 1;
+                                    correctAttemtps++;
+                                }
+                            }
+                        }
+                        if(testReport.CorrectAttempsInEasyQuestions >= Math.Ceiling(testExist.TotalNoOfEasyQuestions / 2.0))
+                        {
+                            testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_PASSED).ResultId;
+                            passed = true;
+                        }
+                        else
+                        {
+                            testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_FAILED).ResultId;
+                        }
+                        if (_db.Reports.Add(testReport) == null)
+                        {
+                            throw new OperationFailedException("Something went wrong during evaluation");
+                        }
+                        break;
+                    case StaticDetails.DIFFICULTY_MEDIUM:
+                        totalQuestions = testExist.TotalNoOfMediumQuestions;
+                        foreach(QuestionResponse response in submitTestModel.QuestionResponses)
+                        {
+                            if(response.Answer != null && response.Answer.Length > 0)
+                            {
+                                testReport.TotalAttemptsInMediumQuestions += 1;
+                                totalAttempts++;
+                                if(response.Answer.Trim().ToLower() == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer.ToLower())
+                                {
+                                    testReport.CorrectAttemptsInMediumQuestions += 1;
+                                    correctAttemtps++;
+                                }
+                            }
+                        }
+                        if(testReport.CorrectAttemptsInMediumQuestions >= Math.Ceiling(testExist.TotalNoOfMediumQuestions / 2.0))
+                        {
+                            testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_PASSED).ResultId;
+                            passed = true;
+                        }
+                        else
+                        {
+                            testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_FAILED).ResultId;
+                        }
+                        break;
+                    case StaticDetails.DIFFICULTY_HARD:
+                        totalQuestions = testExist.TotalNoOfHardQuestions;
+                        foreach (QuestionResponse response in submitTestModel.QuestionResponses)
+                        {
+                            if (response.Answer != null && response.Answer.Length > 0)
+                            {
+                                testReport.TotalAttemptsInHardQuestions += 1;
+                                totalAttempts++;
+                                if (response.Answer.Trim().ToLower() == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer.ToLower())
+                                {
+                                    testReport.CorrectAttemptsInHardQuestions += 1;
+                                    correctAttemtps++;
+                                }
+                            }
+                        }
+                        if(testReport.CorrectAttemptsInHardQuestions >= Math.Ceiling(testExist.TotalNoOfHardQuestions / 2.0))
+                        {
+                            testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_PASSED).ResultId;
+                            passed = true;
+                        }
+                        else
+                        {
+                            testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_FAILED).ResultId;
+                        }
+                        break;
+                }
+                if (_db.SaveChanges() > 0)
+                {
+                    return Ok(new
                     {
-                        testReport.TotalAttemptsInMediumQuestions += 1;
-                        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
-                        {
-                            testReport.CorrectAttemptsInMediumQuestions += 1;
-                        }
-                    }
-                }
-
-                // evaluating hard level questions
-                foreach(QuestionResponse response in submitTestModel.HardLevel)
-                {
-                    if(response.Answer != null && response.Answer.Length > 0)
-                    {
-                        testReport.TotalAttemptsInHardQuestions += 1;
-                        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
-                        {
-                            testReport.CorrectAttemptsInHardQuestions += 1;
-                        }
-                    }
-                }
-
-                if(testReport.CorrectAttempsInEasyQuestions >= Math.Ceiling(testExist.TotalNoOfEasyQuestions / 2.0) &&
-                   testReport.CorrectAttemptsInMediumQuestions >= Math.Ceiling(testExist.TotalNoOfMediumQuestions / 2.0) &&
-                   testReport.CorrectAttemptsInHardQuestions >= Math.Ceiling(testExist.TotalNoOfHardQuestions / 2.0))
-                {
-                    testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_PASSED).ResultId;
-                }
-                else
-                {
-                    testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_FAILED).ResultId;
-                }
-
-                // adding report to database
-                if(_db.Reports.Add(testReport) != null && _db.SaveChanges() > 0)
-                {
-                    return Ok(new { 
-                        StudentName = testReport.Student.Username,
-                        TestName = testReport.Test.Name,
-                        testReport.Test.Admin.OrganizationName,
-                        TestDuration = testReport.Test.Duration,
-                        CorrectAttemptsInEasyQuestions = testReport.CorrectAttempsInEasyQuestions,
-                        testReport.TotalAttemptsInEasyQuestions,
-                        testReport.Test.TotalNoOfEasyQuestions,
-                        testReport.CorrectAttemptsInMediumQuestions,
-                        testReport.TotalAttemptsInMediumQuestions,
-                        testReport.Test.TotalNoOfMediumQuestions,
-                        testReport.CorrectAttemptsInHardQuestions,
-                        testReport.TotalAttemptsInHardQuestions,
-                        testReport.Test.TotalNoOfHardQuestions,
-                        Result = testReport.Result.Name
+                        StudentName = studentExist.Username,
+                        TestName = testExist.Name,
+                        DifficultyLevel = difficultyLevel.ToUpper(),
+                        CorrectAttempts = correctAttemtps,
+                        TotalAttempts = totalAttempts,
+                        TotalQuestions = totalQuestions,
+                        TestResult = passed ? StaticDetails.RESULT_PASSED : StaticDetails.RESULT_FAILED,
                     });
                 }
                 else
                 {
                     throw new OperationFailedException("Test Evaluation Failed");
                 }
+
+                // evaluating easy level questions
+                //foreach(QuestionResponse response in submitTestModel.EasyLevel)
+                //{
+                //    if(response.Answer != null && response.Answer.Length > 0)
+                //    {
+                //        testReport.TotalAttemptsInEasyQuestions += 1;
+                //        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
+                //        {
+                //            testReport.CorrectAttempsInEasyQuestions += 1;
+                //        }
+                //    }
+                //}
+
+                // evaluating medium level questions
+                //foreach(QuestionResponse response in submitTestModel.MediumLevel) {
+                //    if(response.Answer != null && response.Answer.Length > 0)
+                //    {
+                //        testReport.TotalAttemptsInMediumQuestions += 1;
+                //        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
+                //        {
+                //            testReport.CorrectAttemptsInMediumQuestions += 1;
+                //        }
+                //    }
+                //}
+
+                // evaluating hard level questions
+                //foreach(QuestionResponse response in submitTestModel.HardLevel)
+                //{
+                //    if(response.Answer != null && response.Answer.Length > 0)
+                //    {
+                //        testReport.TotalAttemptsInHardQuestions += 1;
+                //        if(response.Answer == testExist.Questions.FirstOrDefault(q => q.Id == response.QuestionId).Answer)
+                //        {
+                //            testReport.CorrectAttemptsInHardQuestions += 1;
+                //        }
+                //    }
+                //}
+
+                //if(testReport.CorrectAttempsInEasyQuestions >= Math.Ceiling(testExist.TotalNoOfEasyQuestions / 2.0) &&
+                //   testReport.CorrectAttemptsInMediumQuestions >= Math.Ceiling(testExist.TotalNoOfMediumQuestions / 2.0) &&
+                //   testReport.CorrectAttemptsInHardQuestions >= Math.Ceiling(testExist.TotalNoOfHardQuestions / 2.0))
+                //{
+                //    testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_PASSED).ResultId;
+                //}
+                //else
+                //{
+                //    testReport.ResultId = _db.Results.FirstOrDefault(r => r.Name == StaticDetails.RESULT_FAILED).ResultId;
+                //}
+
+                // adding report to database
+                //if (_db.Reports.Add(testReport) != null && _db.SaveChanges() > 0)
+                //{
+                //    return Ok(new { 
+                //        StudentName = testReport.Student.Username,
+                //        TestName = testReport.Test.Name,
+                //        testReport.Test.Admin.OrganizationName,
+                //        TestDuration = testReport.Test.Duration,
+                //        CorrectAttemptsInEasyQuestions = testReport.CorrectAttempsInEasyQuestions,
+                //        testReport.TotalAttemptsInEasyQuestions,
+                //        testReport.Test.TotalNoOfEasyQuestions,
+                //        testReport.CorrectAttemptsInMediumQuestions,
+                //        testReport.TotalAttemptsInMediumQuestions,
+                //        testReport.Test.TotalNoOfMediumQuestions,
+                //        testReport.CorrectAttemptsInHardQuestions,
+                //        testReport.TotalAttemptsInHardQuestions,
+                //        testReport.Test.TotalNoOfHardQuestions,
+                //        Result = testReport.Result.Name
+                //    });
+                //}
             }
             catch(OperationFailedException ex)
             {

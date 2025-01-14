@@ -9,6 +9,7 @@ namespace FrontEnd.Models
     {
         public struct LoginModel
         {
+            public string Username { get; set; }
             public string AccessToken { get; set; }
         }
     }

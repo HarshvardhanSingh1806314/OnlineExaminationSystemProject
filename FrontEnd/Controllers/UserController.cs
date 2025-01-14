@@ -47,9 +47,10 @@ namespace FrontEnd.Controllers
         {
             if(ModelState.IsValid)
             {
-                string accessToken = await RequestService.StudentLoginServive(studentlogin);
+                LoginModel loggedInUser = await RequestService.StudentLoginServive(studentlogin);
                 string roleHash = IdGenerator.GenerateRoleId("STUDENT");
-                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", accessToken)
+                StaticDetails.ROLE_STUDENT = roleHash;
+                HttpCookie accessTokenCookie = new HttpCookie("ACCESS_TOKEN", loggedInUser.AccessToken)
                 {
                     HttpOnly = true,
                     Secure = true,
@@ -62,7 +63,8 @@ namespace FrontEnd.Controllers
                     Expires = DateTime.Now.AddDays(1)
                 };
                 Response.Cookies.Add(roleCookie);
-                return RedirectToAction(nameof(Index));
+                StaticDetails.USERNAME = loggedInUser.Username;
+                return RedirectToAction(nameof(Index), "UserDashBoard");
             }
             return View(studentlogin);
         }
@@ -88,13 +90,38 @@ namespace FrontEnd.Controllers
         {
             ViewBag.Message = "Your User Register page.";
 
-            return View(new Resetpassword());
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Reset(Resetpassword resetpassword)
+        public async Task<ActionResult> Reset(Resetpassword resetpassword)
         {
-            return View(resetpassword);
+            bool resetPasswordSuccess = await RequestService.ResetStudentPassword(resetpassword);
+            if (resetPasswordSuccess)
+                return RedirectToActionPermanent(nameof(Login));
+
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            if(Request.Cookies.Get("ACCESS_TOKEN") != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ACCESS_TOKEN")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
+
+            if(Request.Cookies.Get("ROLE") != null)
+            {
+                Response.Cookies.Add(new HttpCookie("ROLE")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                });
+            }
+
+            return RedirectToActionPermanent(nameof(Login));
         }
         public ActionResult Question(string selectedOption, string action)
         {
