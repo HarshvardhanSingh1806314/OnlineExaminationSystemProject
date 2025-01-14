@@ -80,7 +80,8 @@ namespace FrontEnd.Controllers
         {
             if(ModelState.IsValid)
             {
-                if (await RequestService.StudentRegisterService(student))
+                object newStudent = await RequestService.StudentRegisterService(student);
+                if (newStudent != null)
                     return RedirectToAction(nameof(Login));
             }
 

@@ -86,7 +86,9 @@ namespace RESTApi.Controllers
                     string roleId = _db.Roles.Where(r => r.Name == StaticDetails.ROLE_STUDENT).FirstOrDefault().RoleId;
                     _db.UserRoles.Add(new UserRole { UserId = newAddedStudent.Id, RoleId = roleId });
                     _db.SaveChanges();
-                    return Created("Student", newAddedStudent);
+                    return Created("Student", new { 
+                        newAddedStudent.Username
+                    });
                 }
                 else
                 {

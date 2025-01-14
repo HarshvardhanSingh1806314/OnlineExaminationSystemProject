@@ -136,11 +136,11 @@ namespace FrontEnd.AsyncServices
             return loginResponse;
         }
 
-        public static async Task<bool> StudentRegisterService(Student studentRegistrationData)
+        public static async Task<object> StudentRegisterService(Student studentRegistrationData)
         {
             HttpContent postRegisterRequestData = CreateRequestContent(studentRegistrationData);
             string response = await SendRequest("/api/Auth/Student/Register", REQUEST_TYPE_POST, postRegisterRequestData);
-            return response == StaticDetails.RESPONSE_OK;
+            return JsonConvert.DeserializeObject<object>(response);
         }
 
         public static async Task<LoginModel> AdminLoginService(Admin adminLoginCredentials)
